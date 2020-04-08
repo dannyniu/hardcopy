@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=utf-8>
+    <title>Reference Manual for HardCopy Document Structuring Component.</title>
+    <style>
+     samp, pre, code {
+       background-color:        rgba(128,128,128,0.25);
+     }
+    </style>
+  </head>
+  <body>
+
+    <h3>HardCopy - Document Structuring Component</h3>
+
+    <p>
+      This document describes HardCopy's functions for
+      document structuring.
+    </p>
+
+    <p>
+      HardCopy is able to produce multi-page and single-page
+      HTML documents with
+      table of contents,
+      table and figure indicies, and
+      cross-reference hyperlinks.
+    </p>
+
+    <p>
+      As demonstrated in the example project and in
+      <a href="Tutorial.html">tutorial</a>,
+      the structure of the document is defined by
+      the "toc.php" file, which serves as the
+      entry-point of the project.
+      The build process takes this file and
+      produces output in 2 phases.
+    </p>
+
+    <p>In the 1st phase:</p>
+    <ol>
+      <li>
+        "toc.php" tells the build system,
+        the title and optionally the cover page of the document, and
+        which chapter content files to include;
+      </li>
+      <li>
+        the chapter files
+        tells the build system what chapters and sections,
+        as well as what tables and figures and hyperlink references
+        (hence, <i>anchors</i>) there are.
+      </li>
+      <li>
+        The build system records the sequence of occurrences of
+        <i>anchors</i>, and suppresses the output of chapter content files.
+      </li>
+    </ol>
+
+    <p>In the 2nd phase:</p>
+    <ol>
+      <li>
+        The build system takes special code paths to produce
+        cover page, table of contents and indicies, and
+        auxiliary files.
+      </li>
+      <li>
+        The build system returns the recorded occurances of
+        <i>anchors</i> to the chapter files, enable their output,
+        and redirect their output to build destinations.
+        The <i>anchors</i> are decorated with
+        section numbers, table and figure numbers, and
+        anchor IDs.
+      </li>
+    </ol>
+
+    <h4>Variable: <code>$Title</code></h4>
+
+    <p>
+      The main title of the document.
+    </p>
+
+    <h4>Functions <code>hc_H<i>[1-4]</i>(string $s): string</code></h4>
+
+    <p>
+      Records the section title in the 1st phase;
+      returns the section with section markup in the 2nd phase.
+    </p>
+
+    <h4>Functions: <code>hc_{Table,Figure}(string $s): string</code></h4>
+
+    <p>
+      Records table and figure name in the 1st phase;
+      returns anchor element in 2nd phase.
+    </p>
+
+    <h4>Function:
+      <code>hcNamedSection(string $s, $type=1): string</code>
+    </h4>
+
+    <p>
+      Returns an hyperlink anchor to a known section.
+    </p>
+
+    <h4>Function: <code>hcPageBegin(): bool</code></h4>
+
+    <p>
+      Suppresses or enables output based on the current build phase.
+    </p>
+
+    <h4>Function: <code>hcAddPages(string $p): string</code></h4>
+
+    <p>
+      Records a page in the build system. Filename extension shall be omitted.
+    </p>
+
+    <h4>Function: <code>hcFinish(): void</code></h4>
+
+    <p>
+      Marks the end of the document.
+      Does little in the 1st phase;
+      produces output in the 2nd phase.
+    </p>
+
+    <h4>Function:
+      <code>hcNamedAnchor(string $s, string $id): string</code>
+    </h4>
+
+    <p>
+      Produces an anchor with ID specified in <code>$id</code> and
+      text content specified in <code>$s</code>.
+    </p>
+
+    <h4>Function:
+      <code>hcNamedHref(string $id): string</code>
+    </h4>
+
+    <p>
+      Produces a hyperlink to a named anchor produced by
+      <code>hcNamedAnchor</code>.
+      If the named anchor is on a different page than the link,
+      the relative URL of the page is automatically added.
+    </p>
+
+  </body>
+</html>

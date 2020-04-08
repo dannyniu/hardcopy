@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=utf-8>
+    <title>Reference Manual for HardCopy Maths Component.</title>
+    <style>
+     samp, pre, code {
+       background-color:        rgba(128,128,128,0.25);
+     }
+    </style>
+  </head>
+  <body>
+
+    <h3>HardCopy - Maths Component</h3>
+
+    <p>
+      This document describes HardCopy's functions for
+      displaying maths expressions.
+    </p>
+
+    <h4>Function: <code>mEval(string $s): string</code></h4>
+
+    <p>
+      Evaluates a simple expression <code>$s</code>
+      and produce HTML markup.
+    </p>
+
+    <p>
+      This function supports super- and sub- scripts,
+      it automatically italicize variable names
+      that're alphabetic (Latin &amp; Greek) by
+      surrounding them with HTML <code>&lt;var&gt;</code> tag,
+      and allows for manually switching to roman typefaces for
+      unit and function names.
+    </p>
+
+    <p>
+      The details of this function is described in
+      <samp>doc/simple-expression.txt</samp>.
+    </p>
+
+    <h4>Function: <code>mSpan(string $s): string</code></h4>
+
+    <p>
+      This function surrounds the HTML markup <code>$s</code>
+      with a <code>&lt;span&gt;</code> element with
+      the <code>"math"</code> class,
+      and return the resulting markup.
+    </p>
+
+    <h4>Functions:
+      <code>{mSqrt,mCbrt}(string $e, float $hscale=1): string</code>
+    </h4>
+
+    <p>
+      The functions <code>mSqrt</code> and <code>mCbrt</code> surrounds
+      the math expression markup <code>$e</code> with the square and cubic
+      root radical sign. A scaling is applied by user if it can be
+      determined that the height of the expression doesn't match the
+      height of a single line of text.
+    </p>
+
+    <h4>Functions:
+      <code>{mSum,mProd}(string $i, string $u, string $e): string</code>
+    </h4>
+
+    <p>
+      The functions <code>mSum</code> and <code>mProd</code> applys the
+      summation and product notation to the expression <code>$e</code>.
+      The expressions <code>$i</code> and <code>$u</code> will respectively be
+      placed at the bottom and the top of the Sigma or the Pi symbol.
+    </p>
+
+    <h4>Function: <code>mLim(string $i, string $e): string</code></h4>
+
+    <p>
+      The function produces limit applies limit notation
+      to the expression <code>$e</code>.
+      The expression <code>$i</code> is placed under the limit sign.
+    </p>
+
+    <h4>Function:
+      <code>mInt(string $i, string $u, string $e, $int="&amp;int;"): string</code>
+    </h4>
+
+    <p>
+      Produces an integral notation. The default integral sign is the
+      definite integral sign, a different one can be specified on the
+      <code>$int</code> argument.
+    </p>
+
+    <p>
+      The expression <code>$i</code> will be placed at the lower right
+      of the integral sign, and <code>$u</code> at the top right.
+      The expression <code>$e</code> will be placed
+      to the right of the expression.
+    </p>
+
+    <h4>Function:
+      <code>{mSubSup,mSupSub}($sup=null, $ub=null, $align="left"): string</code>
+    </h4>
+
+    <p>
+      The function <code>mSubSup</code> produces a standalone markup
+      consisting of an optional superscript stacked on top of
+      an optional subscript. Such markup can be suitable for
+      use in atomic notation in chemistry.
+    </p>
+
+    <p>The function <code>mSupSub</code> is an alias to <code>mSubSup</code>.</p>
+
+    <h4>Function:
+      <code>
+        mMat(int $rows, int cols, array $array,
+        $style="paren", $lineheight=0, $colmajor=false): string
+      </code>
+    </h4>
+
+    <p>
+      Produces markup for a matrix with
+      <code>$rows</code> rows and <code>$cols</code> columns.
+      The content of the matrix is passed in <code>$array</code>
+      in row-major order unless <code>$colmajor</code> is set to true.
+    </p>
+
+    <p>
+      The paired punctuation surrounding the matrix defaults to
+      parentheses (<code>"paren"</code>),
+      and may be set to
+      <code>"bracket"</code> for squre brackets,
+      <code>"abs"</code> or <code>"det"</code> for vertical bars,
+      in the <code>$style</code> argument.
+    </p>
+
+    <p>
+      The height of the matrix must be manually set in the
+      <code>$lineheight</code> argument, which defaults to
+      0 meaning take the value from the <code>$rows</code> argument.
+    </p>
+
+  </body>
+</html>

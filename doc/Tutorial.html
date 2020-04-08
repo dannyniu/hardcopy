@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=utf-8>
+    <title>Tutorial on How to Setup and Build a HardCopy Project.</title>
+    <style>
+     samp, pre, code {
+       background-color:        rgba(128,128,128,0.25);
+     }
+    </style>
+  </head>
+  <body>
+
+    <h1>Introduction</h1>
+
+    <p>
+      HardCopy is a PHP-based document template system that's
+      designed to output to HTML with a plain visual style.
+      It can output both single-page and multi-page forms
+      that're suitible for both print and web-browsing.
+    </p>
+
+    <p>
+      HardCopy provides a set of functions aiding creation of
+      documents with section headings, hyper-linking, and
+      some commonly-used basic mathematic notations.
+    </p>
+
+    <p>
+      The single-page output of HardCopy may be fed to HTML-to-PDF
+      converter softwares such as WeasyPrint or PrinceXML
+      (the names of which are trademarks of their respective owner).
+    </p>
+
+    <p>
+      Bundled with the default distribution of HardCopy,
+      is the FreeFont fonts from GNU
+      (available at
+      <a href="https://gnu.org/s/freefont">https://gnu.org/s/freefont</a>).
+      GNU FreeFont is used to typeset some mathematical expressions,
+      you may replace it with other fonts if you find conflicts in
+      licensing conditions.
+      For licensing information see
+      <a href="Licenses.html">Licenses.html</a>.
+    </p>
+
+    <h1>Extracting and Installing</h1>
+
+    <p>After extracting, the following directorys should be present:</p>
+
+    <ul>
+      <li><samp>hardcopy</samp></li>
+      <li><samp>hardcopy/doc</samp></li>
+      <li><samp>hardcopy/example-project</samp></li>
+      <li><samp>hardcopy/src</samp></li>
+      <li><samp>hardcopy/src-include</samp></li>
+      <li><samp>hardcopy/src-include/gnu-freefont</samp></li>
+    </ul>
+
+    <p>
+      To install, copy the directory <samp>hardcopy</samp>
+      to <samp>/usr/local/share</samp>.
+      <strong>Installation is optional.</strong>
+    </p>
+
+    <h1>Creating a Project</h1>
+
+    <p>
+      For an example of a complete project,
+      see <samp>hardcopy/example-project</samp>.
+    </p>
+
+    <p>To prepare a project, do the following steps:</p>
+
+    <ol>
+      <li>
+        Create a project directory.
+        If HardCopy codes are not installed in
+        <samp>/usr/share</samp> or
+        <samp>/usr/local/share</samp>,
+        then create the project directory next to the
+        <samp>src-include</samp> directory.
+      </li>
+
+      <li>
+        Create a link to or a copy of
+        <samp>src/hc-env.sh</samp>
+        in the project directory.
+      </li>
+
+      <li>
+        Create the <samp>toc.php</samp> file as the table of contents,
+        and as the main file to be invoked during the build process.
+      </li>
+
+      <li>
+        <strong>[Optional]</strong>
+        If the project requires custom stylesheets, fonts, and/or images,
+        create the <samp>assets</samp> directory.
+      </li>
+    </ol>
+
+    <p>
+      After preparation, we can add contents to the project.
+      <strong>[Note]</strong> In the following steps, all filenames
+      specified to the template system
+      must have their filename extensions
+      (e.g. <samp>.php</samp>, <samp>.html</samp>) removed.
+    </p>
+
+    <ol>
+      <li>
+        Add the PHP start tag <code>&lt;?php</code>
+        to the first line of <samp>toc.php</samp>
+      </li>
+
+      <li>
+        Add <code>require_once(getenv("HARDCOPY_SRCINC_MAIN"));</code>
+        to the 2nd line.
+      </li>
+
+      <li>
+        Set the main title of the entire document by
+        assigning to the <code>$Title</code> variable.
+      </li>
+
+      <li>
+        <strong>[Optional]</strong>
+        Specify a cover page (possibly containing
+        book title, abstract, and/or preface, etc.) by
+        assigning to the <code>$Cover</code> variable, the
+        name of the hypertext file.
+      </li>
+
+      <li>
+        Add chapters (or other types of document fragments) by
+        calling <code>hcAddPages</code> with the filenames of
+        the chapters.
+      </li>
+
+      <li>
+        Complete the document by calling <code>hcFinish</code>.
+      </li>
+    </ol>
+
+    <p>Chapter files are typically created like this:</p>
+
+    <ol>
+      <li>
+        Add the PHP start tag <code>&lt;?php</code>
+        to the first line of the chapter file
+        to begin the chapter declaration block.
+      </li>
+
+      <li>
+        Add <code>require_once(getenv("HARDCOPY_SRCINC_MAIN"));</code>
+        to the 2nd line.
+      </li>
+
+      <li>
+        Declare headings and table and figure indicies by calling
+        <code>hc_H<i>[1-4]</i></code>,
+        <code>hc_Table</code>,
+        <code>hc_Figure</code> and
+        assigning their return values to variables.
+      </li>
+
+      <li>
+        End the chapter declaration block with
+        the following statement followed by a PHP closing tag:
+        <code>if( !hcPageBegin() ) return;</code>
+      </li>
+
+      <li>
+        Add chapter content to the rest of the file. Note that:
+
+        <ul>
+          <li>
+            To add section heading,
+            echo the variable storing the heading title with
+            the <code>&lt;?=</code> and <code>?&gt;</code> tags,
+            without the surrounding <code>&lt;h<i>[1-4]</i>&gt;</code> tags.
+          </li>
+
+          <li>
+            To add table and figure caption,
+            echo the variable storing the table and figure title with
+            the <code>&lt;?=</code> and <code>?&gt;</code> tags
+            usually surrounded with the
+            <code>&lt;caption&gt;</code> and the
+            <code>&lt;figcaption&gt;</code> tags.
+          </li>
+
+          <li>
+            There should not be boilerplate elements such as
+            <code>DOCTYPE</code>,
+            <code>html</code>,
+            <code>head</code>,
+            <code>body</code>
+            or their
+            openning and closing tags.
+          </li>
+        </ul>
+
+      </li>
+    </ol>
+
+    <h1>Building the Project</h1>
+
+    <p>
+      A project can be built in single-page or multi-page variants.
+      Other variants may be added in the future.
+    </p>
+
+    <p>
+      To build a project in single-page variant,
+      change to the project directory, then execute what's
+      equivalent to the following POSIX shell command:
+      <code>( . ./hc-env.sh ; hcBuildSinglepage )</code>.
+      Likewise for multi-page variant:
+      <code>( . ./hc-env.sh ; hcBuildMultipage )</code>.
+    </p>
+
+    <p>
+      After building the single-page variant of the project,
+      at least the following directory entries should appear:
+    </p>
+
+    <ul>
+      <li><samp>build/singlepage/main.html</samp></li>
+      <li><samp>build/singlepage/src-include/</samp></li>
+    </ul>
+
+    <p>
+      As for the multi-page variant,
+      at least the following should appear:
+    </p>
+
+    <ul>
+      <li><samp>build/multipage/frame.html</samp></li>
+      <li><samp>build/multipage/toc.html</samp></li>
+      <li><samp>build/multipage/src-include/</samp></li>
+    </ul>
+
+  </body>
+</html>
