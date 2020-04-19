@@ -141,7 +141,6 @@
 
  function hc_Figure($s)
  {
-   $anchor = $Anchors[$ap];
    global $CurrentPage, $Counters;
    global $Anchors, $AnchorsStats;
    global $AnchorPos, $PageCanBegin;
