@@ -19,20 +19,29 @@ ol.toc-list {
   list-style:   none;
 }
 
+*[data-a-prefix]::before {
+  content:      attr(data-a-prefix) " ";
+}
+
 @media print
 {
   ol.toc-list a {
-    display:              inline-block;
-    width:                87%;
-    position:             relative;
-    border-bottom:        dotted;
+    display:            inline-block;
+    width:              87%;
+    position:           relative;
+    border-bottom:      dotted;
+    text-decoration:    none;
   }
 
   ol.toc-list a::after {
     /* There is currently no ``leader()'' support in WeasyPrint. */
-    position:     absolute;
-    right:        0;
-    content:      target-counter(attr(href url), page);
+    position:   absolute;
+    right:      0;
+    content:    target-counter(attr(href url), page);
+  }
+
+  div.pagebreak {
+    break-after:        always;
   }
 }
 

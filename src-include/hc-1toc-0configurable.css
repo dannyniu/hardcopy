@@ -1,0 +1,53 @@
+@media print
+{
+  @page:right
+  {
+    @bottom-right {
+      content:  counter(page);
+    }
+  }
+
+  @page:left
+  {
+    @bottom-left {
+      content:  counter(page);
+    }
+  }
+
+  @page {
+    @top-center {
+      content:  string(booktitle);
+    }
+
+    @bottom-center {
+      content:  string(ch1);
+    }
+  }
+
+  div.booktitle {
+    string-set: booktitle content();
+  }
+
+  h1 {
+    string-set: ch1 content();
+  }
+
+  /* -- begin: paragraph numbering -- */
+
+  body > p, main > p {
+    counter-increment:  paragraph-cnt;
+    position:           relative;
+  }
+
+  body > p::before, main > p::before {
+    content:    counter(paragraph-cnt);
+    text-align: right;
+    display:    block;
+    position:   absolute;
+    left:       -12mm;
+    width:      10mm;
+    height:     100%;
+  }
+
+  /* -- end: paragraph numbering -- */
+}

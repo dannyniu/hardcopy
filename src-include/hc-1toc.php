@@ -15,8 +15,9 @@
  //   type: h[1-4], table, figure.
  //   page: - copied from ``$CurrentPage'' -.
  //   name: - Argument ``$s'' to hc_H[1-4] and hc_{Table,Figure} -.
- //   title: - h[1-4]: counters + name -;
- //          - {table,figure}: {Table,Figure} n.n name -.
+ //   prefix: - h[1-4]: counters -;
+ //           - {table,figure}: {Table,Figure} n.n -.
+ //   title: - prefix name -
  //   id: - type .+ (counter ~= s/\W/-/g) .+ sha1(name).hexdigits()[0:5] -.
  $Anchors = [];
 
@@ -50,9 +51,12 @@
    $ap = $AnchorPos++;
    if( $PageCanBegin )
    {
+     $anchor = $Anchors[$ap];
      $ret = "";
-     $ret .= "\n<h$n id='".$Anchors[$ap]["id"]."'>";
-     $ret .= $Anchors[$ap]["title"];
+     $ret .= "\n<h$n";
+     $ret .= " id='".$anchor["id"]."'";
+     $ret .= " data-a-prefix='".$anchor["prefix"]."'";
+     $ret .= ">".$anchor["name"];
      $ret .= "</h$n>\n\n";
      return $ret;
    }
@@ -74,7 +78,8 @@
      for($i=0; $i<$n; $i++)
        $counter .= strval($Counters[$i]).".";
 
-     $anchor["title"] = "$counter $s";
+     $anchor["prefix"] = "$counter";
+     $anchor["title"] = $anchor["prefix"]." ".$anchor["name"];
      $anchor["id"] =
        $anchor["type"]."-".
        preg_replace('/\W/', "-", $counter).
@@ -101,9 +106,12 @@
    $ap = $AnchorPos++;
    if( $PageCanBegin )
    {
+     $anchor = $Anchors[$ap];
      $ret = "";
-     $ret .= "<a id='".$Anchors[$ap]["id"]."'>";
-     $ret .= $Anchors[$ap]["title"];
+     $ret .= "<a";
+     $ret .= " id='".$anchor["id"]."'";
+     $ret .= " data-a-prefix='".$anchor["prefix"]."'";
+     $ret .= ">".$anchor["name"];
      $ret .= "</a>\n";
      return $ret;
    }
@@ -118,7 +126,8 @@
      $Counters[4]++;
      $counter = strval($Counters[0]).".".strval($Counters[4]);
 
-     $anchor["title"] = "Table $counter $s";
+     $anchor["prefix"] = "Table $counter";
+     $anchor["title"] = $anchor["prefix"]." ".$anchor["name"];
      $anchor["id"] =
        $anchor["type"]."-".
        preg_replace('/\W/', "-", $counter).
@@ -132,6 +141,7 @@
 
  function hc_Figure($s)
  {
+   $anchor = $Anchors[$ap];
    global $CurrentPage, $Counters;
    global $Anchors, $AnchorsStats;
    global $AnchorPos, $PageCanBegin;
@@ -139,9 +149,17 @@
    $ap = $AnchorPos++;
    if( $PageCanBegin )
    {
+     $anchor = $Anchors[$ap];
      $ret = "";
-     $ret .= "<a id='".$Anchors[$ap]["id"]."'>";
-     $ret .= $Anchors[$ap]["title"];
+     $ret .= "<a";
+     $ret .= " id='".$anchor["id"]."'";
+     $ret .= " data-a-prefix='".$anchor["prefix"]."'";
+     $ret .= ">".$anchor["name"];
+     $ret .= "</a>\n";
+     return $ret;
+     $ret = "";
+     $ret .= "<a id='".$anchor["id"]."'>";
+     $ret .= $anchor["title"];
      $ret .= "</a>\n";
      return $ret;
    }
@@ -156,7 +174,8 @@
      $Counters[5]++;
      $counter = strval($Counters[0]).".".strval($Counters[4]);
 
-     $anchor["title"] = "Figure $counter $s";
+     $anchor["prefix"] = "Figure $counter";
+     $anchor["title"] = $anchor["prefix"]." ".$anchor["name"];
      $anchor["id"] =
        $anchor["type"]."-".
        preg_replace('/\W/', "-", $counter).
@@ -353,6 +372,7 @@
        if( is_file($cand) )
        {
          include($cand);
+         echo "\n<div class=pagebreak></div>\n\n";
          break;
        }
      }
@@ -371,6 +391,7 @@
      __hc_OutputTocIndex__("headings", "Table of Contents", '/^h[1-4]$/');
      __hc_OutputTocIndex__("tables", "Tables", '/^table$/');
      __hc_OutputTocIndex__("figures", "Figures", '/^figure$/');
+     echo "\n<div class=pagebreak></div>\n\n";
    }
 
    $cnt = count($Pages);
