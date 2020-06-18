@@ -56,7 +56,7 @@
      $ret .= "\n<h$n";
      $ret .= " id='".$anchor["id"]."'";
      $ret .= " data-a-prefix='".$anchor["prefix"]."'";
-     $ret .= ">".$anchor["name"];
+     $ret .= ">".htmlspecialchars($anchor["name"]);
      $ret .= "</h$n>\n\n";
      return $ret;
    }
@@ -72,13 +72,18 @@
        $Counters[$i] = 0;
      $Counters[4] = 0;
      $Counters[5] = 0;
-     $Counters[$n-1]++;
+     if( $n == 1 && $Counters[0] === "@" )
+       $Counters[0] = "A"; // Not we're in an annex.
+     else
+       $Counters[$n-1]++; // Numerical chapter numberin.
 
      $counter = "";
      for($i=0; $i<$n; $i++)
        $counter .= strval($Counters[$i]).".";
 
-     $anchor["prefix"] = "$counter";
+     $anchor["prefix"] =
+       (is_string($Counters[0]) && $n == 1 ? "Annex " : "").
+       "$counter";
      $anchor["title"] = $anchor["prefix"]." ".$anchor["name"];
      $anchor["id"] =
        $anchor["type"]."-".
@@ -111,7 +116,7 @@
      $ret .= "<a";
      $ret .= " id='".$anchor["id"]."'";
      $ret .= " data-a-prefix='".$anchor["prefix"]."'";
-     $ret .= ">".$anchor["name"];
+     $ret .= ">".htmlspecialchars($anchor["name"]);
      $ret .= "</a>\n";
      return $ret;
    }
@@ -153,7 +158,7 @@
      $ret .= "<a";
      $ret .= " id='".$anchor["id"]."'";
      $ret .= " data-a-prefix='".$anchor["prefix"]."'";
-     $ret .= ">".$anchor["name"];
+     $ret .= ">".htmlspecialchars($anchor["name"]);
      $ret .= "</a>\n";
      return $ret;
      $ret = "";
@@ -184,6 +189,12 @@
      $AnchorsStats["figures"]++;
      return count($Anchors);
    }
+ }
+
+ function hc_StartAnnexes()
+ {
+   global $Counters;
+   $Counters[0] = "@";
  }
 
  function hcNamedSection($s, $type=null)

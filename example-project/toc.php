@@ -8,4 +8,7 @@
  hcAddPages("ch2-functions");
  hcAddPages("ch3-geometry");
 
+ hc_StartAnnexes();
+ hcAddPages("ch_a-people");
+
  hcFinish();
