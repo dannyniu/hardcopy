@@ -1,3 +1,4 @@
 /example-project/build/*
+/example-project/*.pdf
 ._*
 */._*
