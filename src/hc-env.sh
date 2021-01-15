@@ -1,6 +1,6 @@
 #!/bin/sh
 
-: ${HC_SHARE_PATH:=/usr/share/hardcopy:/usr/local/share/hardcopy:..}
+: ${HC_SHARE_PATH:=/usr/share/hardcopy:/usr/local/share/hardcopy:..:.}
 
 hc_dir_test()
 (
