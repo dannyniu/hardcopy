@@ -448,7 +448,7 @@
 
  function hcNamedAnchor($s, $id)
  {
-   global $NamedAnchors;
+   global $CurrentPage, $NamedAnchors;
 
    $anchor = [];
    $anchor["page"] = $CurrentPage;
