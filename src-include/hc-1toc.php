@@ -129,7 +129,7 @@
      $anchor["name"] = $s;
 
      $Counters[4]++;
-     $counter = strval($Counters[0]).".".strval($Counters[4]);
+     $counter = strval($Counters[0]).".".strval($Counters[4]).".";
 
      $anchor["prefix"] = "Table $counter";
      $anchor["title"] = $anchor["prefix"]." ".$anchor["name"];
@@ -176,7 +176,7 @@
      $anchor["name"] = $s;
 
      $Counters[5]++;
-     $counter = strval($Counters[0]).".".strval($Counters[5]);
+     $counter = strval($Counters[0]).".".strval($Counters[5]).".";
 
      $anchor["prefix"] = "Figure $counter";
      $anchor["title"] = $anchor["prefix"]." ".$anchor["name"];
