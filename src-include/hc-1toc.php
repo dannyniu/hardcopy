@@ -70,8 +70,13 @@
 
      for($i=$n; $i<4; $i++)
        $Counters[$i] = 0;
-     $Counters[4] = 0;
-     $Counters[5] = 0;
+     
+     if( $n == 1 )
+     {
+       $Counters[4] = 0;
+       $Counters[5] = 0;
+     }
+     
      if( $n == 1 && $Counters[0] === "@" )
        $Counters[0] = "A"; // Not we're in an annex.
      else
