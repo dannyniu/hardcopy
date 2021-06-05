@@ -1,0 +1,111 @@
+:root {
+  --math-init-font-size:        18px;
+}
+
+@font-face {
+  font-family:          hc-math;
+  src:                  url("gnu-freefont/FreeSerif.woff");
+  font-style:           normal;
+  font-weight:          normal;
+}
+
+@font-face {
+  font-family:          hc-math;
+  src:                  url("gnu-freefont/FreeSerifItalic.woff");
+  font-style:           italic;
+  font-weight:          normal;
+}
+
+@font-face {
+  font-family:          hc-math;
+  src:                  url("gnu-freefont/FreeSerifBold.woff");
+  font-style:           normal;
+  font-weight:          bold;
+}
+
+@font-face {
+  font-family:          hc-math;
+  src:                  url("gnu-freefont/FreeSerifBoldItalic.woff");
+  font-style:           italic;
+  font-weight:          bold;
+}
+
+br { /* 2020-03-13 T 16:05: not yet fully effective. * /
+  line-height:          0;
+  font-size:            0;/**/
+}
+
+span.math, span.math span { /* Don't want to modify the display of tables. */
+  vertical-align:       middle;
+  position:             relative; /* 2020-03-14: Really usefull? */
+  display:              inline-block;
+}
+
+span.math {
+  text-align:           center;
+  font-family:          FreeSerif, hc-math, Times New Roman, serif;
+  font-size:            var(--math-init-font-size);
+  line-height:          1;
+}
+
+span.math span.math {
+  font-size:            inherit;
+}
+
+span.frac {
+  vertical-align:       middle;
+  text-align:           center;
+}
+
+span.frac-num, span.frac-den {
+  width:                100%; /* 2020-03-13: not sure if this always works. */
+}
+
+span.frac-num {
+  border-bottom:        solid 1pt;
+}
+
+span.radicand { /* The expression to evaluate the radical for. */
+  border-top:           solid 1pt;
+  padding:              0.1em 0.0em;
+}
+
+span.radical { /* The radical sign just before the expression. */
+}
+
+/* 2020-03-13: deco: desize content, enco: enlarge content. */
+
+/* decoration, superscript, subscript. */
+span.deco, sup, sub {
+  display:              inline-block;
+  font-size:            56%; /* rsqrt(3.2) */
+}
+
+span.enco { /* encompass. */
+  font-size:            178%; /* sqrt(3.2) */
+}
+
+span.enco2 { /* encompass twice. */
+  font-size:            320%;
+  padding:              0.2ex 0.0ex;
+}
+
+span.deco, span.enco {
+  vertical-align:       middle;
+}
+
+span.aleft {
+  text-align:   left;
+}
+
+span.aright {
+  text-align:   right;
+}
+
+table.matrix {
+  border-spacing:       6pt;
+}
+
+div.p { /* HTML5 doesn't seem to like nesting table in paragraphs. */
+  margin:       1.12em 0;
+}

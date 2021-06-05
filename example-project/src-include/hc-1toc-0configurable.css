@@ -32,26 +32,6 @@
     string-set: ch1 content();
   }
 
-  /* -- section: elements' fonts -- */
-
-  :root {
-    font-family:
-      TeX Gyre Termes, FreeSerif,
-      Times New Roman, serif;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    font-family:
-      TeX Gyre Heros, FreeSans,
-      Helvetica, Arial, sans-serif;
-  }
-
-  pre, code, kbd, samp {
-    font-family:
-      TeX Gyre Cursor, FreeMono,
-      Courier New, monospace;
-  }
-
   /* -- begin: paragraph numbering -- */
 
   body > p, main > p {
@@ -68,4 +48,6 @@
     width:      10mm;
     height:     100%;
   }
+
+  /* -- end: paragraph numbering -- */
 }

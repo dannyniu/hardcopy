@@ -17,9 +17,7 @@
  function mSqrt($e, $hscale=1)
  {
    $ret = "";
-   $ret .= " <span class=radical";
-   $ret .= " style=\"transform:scaleY($hscale);\">&radic;</span>";
-   $ret .= "<span class=radicand>\n";
+   $ret .= " <span class=radical style=\"transform:scaleY($hscale);\">&radic;</span><span class=radicand>\n";
    $ret .= "  $e \n";
    $ret .= " </span>\n";
    return $ret;
@@ -28,9 +26,7 @@
  function mCbrt($e, $hscale=1)
  {
    $ret = "";
-   $ret .= " <span class=radical";
-   $ret .= " style=\"transform:scaleY($hscale);\">&#x221b;</span>";
-   $ret .= "<span class=radicand>\n";
+   $ret .= " <span class=radical style=\"transform:scaleY($hscale);\">&#x221b;</span><span class=radicand>\n";
    $ret .= "  $e \n";
    $ret .= " </span>\n";
    return $ret;

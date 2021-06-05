@@ -1,0 +1,53 @@
+div.booktitle {
+  text-align:   center;
+  margin:       3pc 2pc;
+  font-size:    185%;
+  font-weight:  bold;
+}
+
+div.abstract {
+  margin:       0% 15%;
+}
+
+div.toc-list-head {
+  font-weight:  bold;
+  font-family:  serif;
+  font-size:    125%;
+}
+
+ol.toc-list {
+  list-style:   none;
+}
+
+*[data-a-prefix]::before {
+  content:      attr(data-a-prefix) " ";
+}
+
+@media print
+{
+  ol.toc-list a {
+    display:            inline-block;
+    width:              87%;
+    position:           relative;
+    border-bottom:      dotted;
+    text-decoration:    none;
+  }
+
+  ol.toc-list a::after {
+    /* There is currently no ``leader()'' support in WeasyPrint. */
+    position:   absolute;
+    right:      0;
+    content:    target-counter(attr(href url), page);
+  }
+
+  div.pagebreak {
+    break-after:        always;
+  }
+}
+
+nav.navbar-multipage {
+  margin:       3mm 0mm;
+  padding:      3mm 2mm;
+  border:       solid 1pt gray;
+  box-shadow:   1mm 1mm 2mm rgba(0,0,0,0.2);
+}

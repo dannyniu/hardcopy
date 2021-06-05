@@ -1,1 +1,0 @@
-../src/hc-env.sh

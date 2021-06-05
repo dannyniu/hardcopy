@@ -83,12 +83,6 @@
       </li>
 
       <li>
-        Create a link to or a copy of
-        <samp>src/hc-env.sh</samp>
-        in the project directory.
-      </li>
-
-      <li>
         Create the <samp>toc.php</samp> file as the table of contents,
         and as the main file to be invoked during the build process.
       </li>
@@ -214,11 +208,19 @@
 
     <p>
       To build a project in single-page variant,
-      change to the project directory, then execute what's
-      equivalent to the following POSIX shell command:
-      <code>( . ./hc-env.sh ; hcBuildSinglepage )</code>.
+      change to the project directory, then execute
+      <code>hc-cmd.sh</code> from the <samp>src</samp> directory:
+      <code>hc-cmd.sh -s</code>.
       Likewise for multi-page variant:
-      <code>( . ./hc-env.sh ; hcBuildMultipage )</code>.
+      <code>hc-env.sh -m</code>.
+    </p>
+
+    <p>
+      The options <code>-s</code> and <code>-m</code>
+      are build specifiers. An additional <code>-v</code> flag
+      is supported for turning on verbose diagnostics.
+      For browser preview on local network, you may run
+      <code>hc-cmd.sh</code> without build specifiers.
     </p>
 
     <p>

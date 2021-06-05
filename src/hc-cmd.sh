@@ -66,7 +66,7 @@ hcBuildMultipage()
 {
     __hcBuildVariant__ multipage
 
-    HARDCOPY_OUTPUT_CONTROL=/ php toc.php | (
+    HARDCOPY_OUTPUT_CONTROL=pagelist/ php toc.php | (
         export HARDCOPY_OUTPUT_CONTROL=.
         php toc.php > build/multipage/toc.html
         while read page ; do
@@ -75,12 +75,40 @@ hcBuildMultipage()
         done
     )
 
-    HARDCOPY_OUTPUT_CONTROL=./ php toc.php > build/multipage/frame.html
+    HARDCOPY_OUTPUT_CONTROL=pageframe/ > build/multipage/frame.html \
+                           php toc.php
 }
 
 hcBuildSinglepage()
 {
     __hcBuildVariant__ singlepage
 
-    HARDCOPY_OUTPUT_CONTROL="" php toc.php > build/singlepage/main.html
+    HARDCOPY_OUTPUT_CONTROL="" > build/singlepage/main.html \
+                           php toc.php
 }
+
+log(){ [ X"$verbose" = Xtrue ] && echo $* ; }
+
+verbose=false
+render=localnet
+
+while getopts vsm opt ; do
+    case $opt in
+        v) verbose=true;;
+        s) render=singlepage;;
+        m) render=multipage;;
+    esac
+done
+
+shift $((OPTIND - 1))
+
+if ! [ -f toc.php ] ; then
+    log '"toc.php" is not found in the current directory!'
+    exit 1
+fi
+
+case $render in
+    localnet) hcBrowserPreview;;
+    singlepage) hcBuildSinglepage;;
+    multipage) hcBuildMultipage;;
+esac
