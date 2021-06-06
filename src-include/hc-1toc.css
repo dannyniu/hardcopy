@@ -25,6 +25,7 @@ ol.toc-list a {
 
 ol.toc-list a[href*="#h1-"] {
   margin-top:   1ex;
+  font-weight:  bold;
 }
 
 *[data-a-prefix]::before {
@@ -36,7 +37,7 @@ ol.toc-list a[href*="#h1-"] {
   ol.toc-list a {
     width:              87%;
     position:           relative;
-    border-bottom:      dotted;
+    /* border-bottom:      dotted; */
     text-decoration:    none;
   }
 
