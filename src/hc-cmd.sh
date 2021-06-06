@@ -30,7 +30,7 @@ hcBrowserPreview()
 {
     bind="${2:-0.0.0.0}:${1:-8080}"
     echo
-    echo Open "\"http://$bind/example-project/toc.php\"" in browser.
+    echo Open "\"http://$bind/$(basename "$PWD")/toc.php\"" in browser.
     echo
     php -S "$bind" -t ..
 }
