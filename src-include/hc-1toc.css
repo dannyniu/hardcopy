@@ -19,6 +19,14 @@ ol.toc-list {
   list-style:   none;
 }
 
+ol.toc-list a {
+  display:      block;
+}
+
+ol.toc-list a[href*="#h1-"] {
+  margin-top:   1ex;
+}
+
 *[data-a-prefix]::before {
   content:      attr(data-a-prefix) " ";
 }
@@ -26,7 +34,6 @@ ol.toc-list {
 @media print
 {
   ol.toc-list a {
-    display:            inline-block;
     width:              87%;
     position:           relative;
     border-bottom:      dotted;

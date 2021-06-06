@@ -350,7 +350,7 @@
    echo "  <head>\n";
    echo "    <meta charset='UTF-8'>\n";
 
-   foreach( glob("src-include/*.css") as $css )
+   foreach( glob(getenv("HARDCOPY_SRCINC")."/*.css") as $css )
    {
      echo "    <link rel=stylesheet href='".htmlspecialchars($css)."'>\n";
    }

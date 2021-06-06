@@ -23,23 +23,16 @@ if ! [ "$HARDCOPY_DIR" ] ; then
     exit 1
 fi
 
-if ! [ -d src-include ] &&
-        ! ln -s "$HARDCOPY_DIR/src-include" src-include &&
-        ! cp -R "$HARDCOPY_DIR/src-include" src-include ; then
-    echo Failed to prepare assets for \"src-include\".
-    exit 1
-fi
-
-export HARDCOPY_SRCINC="src-include"
+export HARDCOPY_SRCINC="$HARDCOPY_DIR/src-include"
 export HARDCOPY_SRCINC_MAIN="$HARDCOPY_SRCINC/hardcopy.php"
 
 hcBrowserPreview()
 {
     bind="${2:-0.0.0.0}:${1:-8080}"
     echo
-    echo Open "\"http://$bind/toc.php\"" in browser.
+    echo Open "\"http://$bind/example-project/toc.php\"" in browser.
     echo
-    php -S "$bind" -t .
+    php -S "$bind" -t ..
 }
 
 __hcBuildVariant__()
@@ -108,7 +101,7 @@ if ! [ -f toc.php ] ; then
 fi
 
 case $render in
-    localnet) hcBrowserPreview;;
+    localnet) hcBrowserPreview "$@";;
     singlepage) hcBuildSinglepage;;
     multipage) hcBuildMultipage;;
 esac
