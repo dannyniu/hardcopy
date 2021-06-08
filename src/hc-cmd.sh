@@ -60,7 +60,7 @@ hcBuildMultipage()
     __hcBuildVariant__ multipage
 
     HARDCOPY_OUTPUT_CONTROL=pagelist/ php toc.php | (
-        export HARDCOPY_OUTPUT_CONTROL=.
+        export HARDCOPY_OUTPUT_CONTROL=toc/
         php toc.php > build/multipage/toc.html
         while read page ; do
             export HARDCOPY_OUTPUT_CONTROL="$page"
