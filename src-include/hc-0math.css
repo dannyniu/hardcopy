@@ -12,7 +12,7 @@ span.math, span.math span { /* Don't want to modify the display of tables. */
 span.math:not(table.matrix *[rowspan] > *) {
   text-align:       center;
   font-family:
-    TeX Gyre Termes, FreeSerif, 
+    TeX Gyre Termes, FreeSerif,
     Times New Roman, serif;
   font-size:        var(--math-init-font-size);
   line-height:      1;
@@ -23,7 +23,7 @@ span.math span.math {
 }
 
 span.frac {
-  vertical-align:   middle;
+  /* vertical-align:   middle; */
   text-align:       center;
   padding-left:     2pt;
   padding-right:    2pt;
@@ -35,8 +35,14 @@ span.frac-num, span.frac-den {
   padding-right:    2pt;
 }
 
+span.frac-num {
+  /* 2021-10-01: border-top may be used by radicand of "span.frac-den". */
+  border-bottom:    solid 1px;
+  padding-bottom:   3pt;
+}
+
 span.frac-den {
-  border-top:       solid 1pt;
+  bottom:           2pt; /* 2021-10-01: account for actual font metrics. */
 }
 
 span.radicand { /* The expression to evaluate the radical for. */

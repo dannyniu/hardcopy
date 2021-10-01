@@ -33,15 +33,15 @@
   <caption><?= $tbl1 ?></caption>
 
   <tr><td><span class=math>
-    <?= mEval('\sin &alpha; = ').mFrac('y', 'h'); ?>
+    <?= mEval('\sin &alpha; = ').mFrac(mEval('y'), mEval('h')); ?>
   </span></td></tr>
 
   <tr><td><span class=math>
-    <?= mEval('\cos &alpha; = ').mFrac('x', 'h'); ?>
+    <?= mEval('\cos &alpha; = ').mFrac(mEval('x'), mEval('h')); ?>
   </span></td></tr>
 
   <tr><td><span class=math>
-    <?= mEval('\tan &alpha; = ').mFrac('y', 'x'); ?>
+    <?= mEval('\tan &alpha; = ').mFrac(mEval('y'), mEval('2x')); ?>
   </span></td></tr>
 
 </table>
