@@ -1,7 +1,7 @@
 <?php
  # For documentation and explanation of
  # what mEval and all these functions do,
- # refer to "doc/simple-expression.txt"
+ # refer to "doc/simple-expression.md"
 
  function __mEval_str2groups($str)
  {
@@ -87,7 +87,8 @@
        $c = nextc($str, $pos, $len); // physical character.
        $cc = $c; // logical character.
 
-       if( $c == ord("&") ) // decode HTML entity into logical character.
+       if( $c == ord("&") )
+         // decode HTML entity into logical character.
        {
          $d = $c;
          $rem1 = $pos1;
@@ -102,9 +103,9 @@
        }
 
        if( $c < 0 )
-       {
          // end-of-string,
          // flush then continue in next in ``$a''.
+       {
 
          if( $elem["t"] ) {
            $elem["v"] = substr($str, $rem, $pos1-$rem);
@@ -115,11 +116,8 @@
 
        else if( __mIsAlpha($cc) )
        {
-         // consume input if true,
-         if( $elem["t"] == "t" || $elem["t"] == "l" );
-
-         // else, flush and reset ``$elem''.
-         else
+         // consume input if true, else, flush and reset ``$elem''.
+         if( $elem["t"] == "t" || $elem["t"] == "l" ); else
          {
            if( $elem["t"] ) {
              $elem["v"] = substr($str, $rem, $pos1-$rem);
@@ -135,11 +133,8 @@
 
        else if( __mIsDigit($cc) )
        {
-         // consume input if true,
-         if( $elem["t"] == "t" || $elem["t"] == "a" );
-
-         // else, flush and reset ``$elem''.
-         else
+         // consume input if true, else, flush and reset ``$elem''.
+         if( $elem["t"] == "t" || $elem["t"] == "a" ); else
          {
            if( $elem["t"] ) {
              $elem["v"] = substr($str, $rem, $pos1-$rem);
@@ -187,11 +182,8 @@
 
        else // symbol (mostly operators) assumed.
        {
-         // consume input if true,
-         if( $elem["t"] == "a" );
-
-         // else, flush and reset ``$elem''.
-         else
+         // consume input if true, else, flush and reset ``$elem''.
+         if( $elem["t"] == "a" ); else
          {
            if( $elem["t"] ) {
              $elem["v"] = substr($str, $rem, $pos1-$rem);
@@ -364,5 +356,5 @@
    $v = __mEval_str2groups($s);
    $v = __mEval_groups2tree($v);
    $v = __mEval_translate($v);
-   return $v;
+   return __mPreSpan().$v.__mPostSpan();
  }

@@ -121,7 +121,7 @@
      $ret = "";
      $ret .= "<a";
      $ret .= " id=\"".$anchor["id"]."\"";
-     $ret .= " data-a-prefix='".$anchor["prefix"]."'";
+     $ret .= " data-a-prefix=\"".$anchor["prefix"]."\"";
      $ret .= ">".htmlspecialchars($anchor["name"]);
      $ret .= "</a>\n";
      return $ret;
@@ -327,7 +327,7 @@
    }
 
    if( $OutputControl !== "" )
-     $Target = "target=main";
+     $Target = "target=\"main\"";
 
    $title = $Title;
    $pagetitle = null;
@@ -348,16 +348,16 @@
    echo "<!DOCTYPE html>\n";
    echo "<html>\n";
    echo "  <head>\n";
-   echo "    <meta charset='UTF-8'>\n";
+   echo "    <meta charset=\"UTF-8\">\n";
 
    foreach( glob(getenv("HARDCOPY_SRCINC")."/*.css") as $css )
    {
-     echo "    <link rel=stylesheet href='".htmlspecialchars($css)."'>\n";
+     echo "    <link rel=stylesheet href=\"".htmlspecialchars($css)."\">\n";
    }
 
    foreach( glob("assets/*.css") as $css )
    {
-     echo "    <link rel=stylesheet href='".htmlspecialchars($css)."'>\n";
+     echo "    <link rel=stylesheet href=\"".htmlspecialchars($css)."\">\n";
    }
 
    echo "    <title>".htmlspecialchars($title)."</title>\n";
@@ -392,7 +392,7 @@
    if( $OutputControl === "toc/" )
    {
      echo "\n<div class=toc-list-head>";
-     echo "<a $Target href='$Cover.html'>Cover Page</a>";
+     echo "<a $Target href=\"$Cover.html\">Cover Page</a>";
      echo "</div>\n\n";
    }
 
@@ -402,7 +402,7 @@
      __hc_OutputTocIndex__("headings", "Table of Contents", '/^h[1-4]$/');
      __hc_OutputTocIndex__("tables", "Tables", '/^table$/');
      __hc_OutputTocIndex__("figures", "Figures", '/^figure$/');
-     echo "\n<div class=pagebreak></div>\n\n";
+     echo "\n<div class=\"pagebreak\"></div>\n\n";
    }
 
    $cnt = count($Pages);
@@ -456,7 +456,7 @@
    $anchor["text"] = $s;
    $NamedAnchors[$id] = $anchor;
 
-   return "<a id='namedanchor-$id'>$s</a>";
+   return "<a id=\"namedanchor-$id\">$s</a>";
  }
 
  function hcNamedHref($id)
@@ -469,5 +469,5 @@
    if( $OutputControl !== "" )
      $href = $anchor["page"].".html$href";
 
-   return "<a $Target href='$href'>".$anchor["text"]."</a>";
+   return "<a $Target href=\"$href\">".$anchor["text"]."</a>";
  }

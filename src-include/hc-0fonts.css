@@ -1,0 +1,60 @@
+@font-face {
+  font-family:      FreeSerif;
+  src:              url("gnu-freefont/FreeSerif.woff");
+  font-style:       normal;
+  font-weight:      normal;
+}
+
+@font-face {
+  font-family:      FreeSerif;
+  src:              url("gnu-freefont/FreeSerifItalic.woff");
+  font-style:       italic;
+  font-weight:      normal;
+}
+
+@font-face {
+  font-family:      FreeSerif;
+  src:              url("gnu-freefont/FreeSerifBold.woff");
+  font-style:       normal;
+  font-weight:      bold;
+}
+
+@font-face {
+  font-family:      FreeSerif;
+  src:              url("gnu-freefont/FreeSerifBoldItalic.woff");
+  font-style:       italic;
+  font-weight:      bold;
+}
+
+@font-face {
+  font-family:      TeX Gyre Termes;
+  src:              url("tex-gyre/opentype/texgyretermes-regular.otf");
+  font-style:       normal;
+  font-weight:      normal;
+}
+
+@font-face {
+  font-family:      TeX Gyre Termes;
+  src:              url("tex-gyre/opentype/texgyretermes-italic.otf");
+  font-style:       italic;
+  font-weight:      normal;
+}
+
+@font-face {
+  font-family:      TeX Gyre Termes;
+  src:              url("tex-gyre/opentype/texgyretermes-bold.otf");
+  font-style:       normal;
+  font-weight:      bold;
+}
+
+@font-face {
+  font-family:      TeX Gyre Termes;
+  src:              url("tex-gyre/opentype/texgyretermes-bolditalic.otf");
+  font-style:       italic;
+  font-weight:      bold;
+}
+
+@font-face {
+  font-family:      TeX Gyre Termes Math;
+  src:              url("tex-gyre-math/opentype/texgyretermes-math.otf");
+}

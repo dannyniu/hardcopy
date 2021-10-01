@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# See "doc/Tutorial.html" for usage.
+
 : ${HC_SHARE_PATH:=/usr/share/hardcopy:/usr/local/share/hardcopy:..:.}
 
 hc_dir_test()
@@ -44,7 +46,15 @@ __hcBuildVariant__()
     cp src-include/*.css build/"$variant"/src-include
 
     [ "$HARDCOPY_NOGPL" ] ||
-        cp -R src-include/gnu-freefont build/"$variant"/src-include
+        cp -R \
+           src-include/gnu-freefont \
+           build/"$variant"/src-include
+
+    [ "$HARDCOPY_NOTEX" ] ||
+        cp -R \
+           src-include/tex-gyre \
+           src-include/tex-gyre-math \
+           build/"$variant"/src-include
 
     if [ -d assets ] ; then
         pax -w -r assets build/"$variant"
@@ -80,7 +90,7 @@ hcBuildSinglepage()
                            php toc.php
 }
 
-log(){ [ X"$verbose" = Xtrue ] && echo $* ; }
+log(){ [ X"$verbose" = Xtrue ] && echo "$*" ; }
 
 verbose=false
 render=localnet

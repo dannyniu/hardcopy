@@ -1,9 +1,14 @@
 SYNOPSIS
+========
 
+```php
 mEval(string $s): string
--- Evaluates simple expression and produce HTML markup. 
+```
+
+Evaluates simple expression and produce HTML markup. 
 
 DESCRIPTION
+===========
 
 The function evaluates the simple expression passed in ``$s'', and
 produces HTML markup that can be embedded in "span" elements with
@@ -18,18 +23,18 @@ considered as ''alpha-numeral'' characters.
 The <backslash> character (U+005C) is the "text escape" character.
 It has 2 forms.
 
-1: \abcd1234: A <backslash> is immediately followed by a sequence of
-              alpha-numeral characters, and stops immediately at the
-              first that is not one.
+1. `\abcd1234`: A <backslash> is immediately followed by a sequence of
+                alpha-numeral characters, and stops immediately at the
+                first that is not one.
 
-2: \{abc-12}: A <backslash> is immediately followed by a
-              <left brace>, then a sequence of characters that isn't
-              a <right brace>, and stops at the first <right brace>
-              encountered. The content between the braces are interpreted
-              as literal text with HTML mark-up.
-              - Because of this, there cannot be any <right brace> in the
-              text, but it can be instead represented as a
-              "character reference", e.g. &#x007d; or &rbrace;.
+2. `\{abc-12}`: A <backslash> is immediately followed by a
+                <left brace>, then a sequence of characters that isn't
+                a <right brace>, and stops at the first <right brace>
+                encountered. The content between the braces are interpreted
+                as literal text with HTML mark-up.
+                Because of this, there cannot be any <right brace> in the
+                text, but it can be instead represented as a
+                "character reference", e.g. &#x007d; or &rbrace;.
 
 The "text escape" character is intended to enable writers to include
 function names that are literal texts (e.g. "AES-256"), that are
@@ -53,8 +58,9 @@ The "{" must not be preceeded by a <backslash>. The grouping may be
 arbitrarily nested. 
 
 Escaping
+--------
 
-The special characters mentioned so far (<backslash>, "^", ")", "{", "}")
+The special characters mentioned so far (<backslash>, "^", "_", "{", "}")
 must be escaped if they're to represent themselves literally. As the
 output is HTML, they should be escaped using HTML entities.
 
@@ -63,6 +69,7 @@ However, due to the widespread use of relational operators, the sequences:
 respectively. 
 
 IMPLEMENTATION DETAILS
+======================
 
 The function converts a simple expression to HTML code in 3 stages: 
 
@@ -93,5 +100,7 @@ formatted. If an HTML entity is not put into grouping, then only the
 beginning "&" is put into sub/super-script. 
 
 HISTORY
+=======
 
-On 2020-03-21, "hc-0math-1eval.php" is being commentated. 
+- 2020-03-21, "hc-0math-1eval.php" is being commentated. 
+- 2021-09-30, 1 typo is corrected; the file had been converted to MarkDown.

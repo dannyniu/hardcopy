@@ -2,34 +2,6 @@
   --math-init-font-size:    20px;
 }
 
-@font-face {
-  font-family:      hc-math;
-  src:              url("gnu-freefont/FreeSerif.woff");
-  font-style:       normal;
-  font-weight:      normal;
-}
-
-@font-face {
-  font-family:      hc-math;
-  src:              url("gnu-freefont/FreeSerifItalic.woff");
-  font-style:       italic;
-  font-weight:      normal;
-}
-
-@font-face {
-  font-family:      hc-math;
-  src:              url("gnu-freefont/FreeSerifBold.woff");
-  font-style:       normal;
-  font-weight:      bold;
-}
-
-@font-face {
-  font-family:      hc-math;
-  src:              url("gnu-freefont/FreeSerifBoldItalic.woff");
-  font-style:       italic;
-  font-weight:      bold;
-}
-
 span.math, span.math span { /* Don't want to modify the display of tables. */
   vertical-align:   middle;
   position:         relative; /* 2020-03-14: Really usefull? */
@@ -40,9 +12,8 @@ span.math, span.math span { /* Don't want to modify the display of tables. */
 span.math:not(table.matrix *[rowspan] > *) {
   text-align:       center;
   font-family:
-    TeX Gyre Termes Math,
-    FreeSerif, hc-math,
-    Times New Roman, serif;
+    TeX Gyre Termes Math, FreeSerif, 
+    Times New Roman, math, serif;
   font-size:        var(--math-init-font-size);
   line-height:      1;
 }
@@ -54,19 +25,23 @@ span.math span.math {
 span.frac {
   vertical-align:   middle;
   text-align:       center;
+  padding-left:     2pt;
+  padding-right:    2pt;
 }
 
 span.frac-num, span.frac-den {
   width:            100%; /* 2020-03-13: not sure if this always works. */
+  padding-left:     2pt;
+  padding-right:    2pt;
 }
 
-span.frac-num {
-  border-bottom:    solid 1pt;
+span.frac-den {
+  border-top:       solid 1pt;
 }
 
 span.radicand { /* The expression to evaluate the radical for. */
   border-top:       solid 1pt;
-  padding:          0.1em 0.0em;
+  padding:          1pt 0.0em;
 }
 
 span.radical { /* The radical sign just before the expression. */
@@ -109,8 +84,7 @@ table.matrix *[rowspan] > *,
 table.matrix *[rowspan] {
   line-height:      0.9;
   font-family:
-    TeX Gyre Termes,
-    FreeSerif, hc-math,
+    TeX Gyre Termes, FreeSerif,
     Times New Roman, serif;
 }
 

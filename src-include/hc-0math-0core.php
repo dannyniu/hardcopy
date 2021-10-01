@@ -82,3 +82,19 @@
 
    return $ret;
  }
+
+ $__mSpanStacking = 0;
+ 
+ function __mPreSpan()
+ {
+   global $__mSpanStacking;
+   if( ($__mSpanStacking++) == 0 )
+     return "<span class=\"math\">";
+ }
+
+ function __mPostSpan()
+ {
+   global $__mSpanStacking;
+   if( (--$__mSpanStacking) == 0 )
+     return "</span>";
+ }

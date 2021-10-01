@@ -1,99 +1,105 @@
 <?php
  function mSpan($s)
  {
-   return "<span class=math>$s</span>";
+   $ret = __mPreSpan();
+   $ret .= $s;
+   return $ret.__mPostSpan();
  }
 
  function mFrac($num, $den)
  {
-   $ret = "";
-   $ret .= " <span class=frac>\n";
-   $ret .= "  <span class=frac-num>$num</span><br/>\n";
-   $ret .= "  <span class=frac-den>$den</span>\n";
+   $ret = __mPreSpan();
+   $ret .= " <span class=\"frac\">\n";
+   $ret .= "  <span class=\"frac-num\">$num</span><br/>\n";
+   $ret .= "  <span class=\"frac-den\">$den</span>\n";
    $ret .= " </span> \n";
-   return $ret;
+   return $ret.__mPostSpan();
  }
 
- function mSqrt($e, $hscale=1)
+ function mSqrt($e, $hscale=1.35)
  {
-   $ret = "";
-   $ret .= " <span class=radical";
+   $ret = __mPreSpan();
+   $ret .= " <span class=\"radical\"";
    $ret .= " style=\"transform:scaleY($hscale);\">&radic;</span>";
-   $ret .= "<span class=radicand>\n";
+   $ret .= "<span class=\"radicand\">\n";
    $ret .= "  $e \n";
    $ret .= " </span>\n";
-   return $ret;
+   return $ret.__mPostSpan();
  }
 
  function mCbrt($e, $hscale=1)
  {
-   $ret = "";
-   $ret .= " <span class=radical";
+   $ret = __mPreSpan();
+   $ret .= " <span class=\"radical\"";
    $ret .= " style=\"transform:scaleY($hscale);\">&#x221b;</span>";
-   $ret .= "<span class=radicand>\n";
+   $ret .= "<span class=\"radicand\">\n";
    $ret .= "  $e \n";
    $ret .= " </span>\n";
-   return $ret;
+   return $ret.__mPostSpan();
  }
 
  function mSum($i, $u, $e)
  {
-   $ret = "";
-   $ret .= " <span class=deco>\n";
+   $ret = __mPreSpan();
+   $ret .= " <span class=\"deco\">\n";
    $ret .= "  $u<br/>\n";
-   $ret .= "  <span class=enco>&sum;</span><br/>\n";
+   $ret .= "  <span class=\"enco\">&sum;</span><br/>\n";
    $ret .= "  $i\n";
    $ret .= " </span> $e ";
-   return $ret;
+   return $ret.__mPostSpan();
  }
 
  function mProd($i, $u, $e)
  {
-   $ret = "";
-   $ret .= " <span class=deco>\n";
+   $ret = __mPreSpan();
+   $ret .= " <span class=\"deco\">\n";
    $ret .= "  $u<br/>\n";
-   $ret .= "  <span class=enco>&prod;</span><br/>\n";
+   $ret .= "  <span class=\"enco\">&prod;</span><br/>\n";
    $ret .= "  $i\n";
    $ret .= " </span> $e ";
-   return $ret;
+   return $ret.__mPostSpan();
  }
 
  function mLim($i, $e)
  {
-   $ret = "";
-   $ret .= " <span class=deco><br/>\n";
-   $ret .= "  <span class=enco>lim</span><br>\n";
+   $ret = __mPreSpan();
+   $ret .= " <span class=\"deco\"><br/>\n";
+   $ret .= "  <span class=\"enco\">lim</span><br>\n";
    $ret .= "  $i";
    $ret .= " </span> $e ";
-   return $ret;
+   return $ret.__mPostSpan();
  }
 
  function mInt($i, $u, $e, $int="&int;")
  {
-   $ret = "";
-   $ret .= " <span class=deco>\n";
-   $ret .= "  <span class=enco2>$int</span>\n";
-   $ret .= "  <span class=aleft>$u<br>\n";
+   $ret = __mPreSpan();
+   $ret .= " <span class=\"deco\">\n";
+   $ret .= "  <span class=\"enco2\">$int</span>\n";
+   $ret .= "  <span class=\"aleft\">$u<br>\n";
    $ret .= "   &ZeroWidthSpace;<br>\n";
    $ret .= "   &ZeroWidthSpace;<br>\n";
    $ret .= "   $i";
    $ret .= " </span></span> $e \n";
-   return $ret;
+   return $ret.__mPostSpan();
  }
 
  function mSupSub($sup=null, $sub=null, $align="left")
  {
+   $ret = __mPreSpan();
+   
    if( $sup === null && $sub === null )
-     return "";
+     $ret .= "";
 
    else if( $sup !== null && $sub === null )
-   return "<sup>$sup</sup>";
+     $ret .= "<sup>$sup</sup>";
 
    else if( $sup === null && $sub !== null )
-   return "<sub>$sub</sub>";
+     $ret .= "<sub>$sub</sub>";
 
    else if( $sup !== null && $sub !== null )
-   return "<span class='deco a$align'>$sup<br>$sub</span>";
+     $ret .= "<span class='deco a$align'>$sup<br>$sub</span>";
+
+   return $ret.__mPostSpan();
  }
 
  function mSubSup($sup=null, $sub=null, $align="left")
@@ -104,11 +110,11 @@
 
  function mMat($rows, $cols, $array, $style="paren", $lineheight=0, $colmajor=false)
  {
-   $ret = "";
-   $abs         = [ "&#x23b8;", "&#x23b8;", "&#x23b8;", "&#x23b8;", "&#x23b8;", "&#x23b8;", ];
-   $bracket     = [ "&#x23a1;", "&#x23a2;", "&#x23a3;", "&#x23a4;", "&#x23a5;", "&#x23a6;", ];
-   $paren       = [ "&#x239b;", "&#x239c;", "&#x239d;", "&#x23a7;", "&#x23a8;", "&#x23a9;", ];
-   $enclose     = null;
+   $ret = __mPreSpan();
+   $abs     = [ "&#x23b8;", "&#x23b8;", "&#x23b8;", "&#x23b8;", "&#x23b8;", "&#x23b8;", ];
+   $bracket = [ "&#x23a1;", "&#x23a2;", "&#x23a3;", "&#x23a4;", "&#x23a5;", "&#x23a6;", ];
+   $paren   = [ "&#x239b;", "&#x239c;", "&#x239d;", "&#x23a7;", "&#x23a8;", "&#x23a9;", ];
+   $enclose = null;
 
    if( !$lineheight ) $lineheight = $rows;
    switch( $style )
@@ -162,5 +168,5 @@
    }
    $ret .= "</table>\n";
 
-   return $ret;
+   return $ret.__mPostSpan();
  }

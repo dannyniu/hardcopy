@@ -27,39 +27,36 @@
 
     <tr>
       <td>natural numbers</td>
-      <td><span class=math>&naturals;</span></td>
+      <td><span class="math">&naturals;</span></td>
       <td>0, 1, 2, 3, etc.</td>
     </tr>
 
     <tr>
       <td>integers / whole numbers</td>
-      <td><span class=math>&integers;</span></td>
+      <td><span class="math">&integers;</span></td>
       <td>-5, -3, -2, 0, 1, 4, 6, etc.</td>
     </tr>
 
     <tr>
       <td>rational numbers</td>
-      <td><span class=math>&rationals;</span></td>
+      <td><span class="math">&rationals;</span></td>
       <td>-3, 7/8, 22/7, 9.6, etc.</td>
     </tr>
 
     <tr>
       <td>real numbers</td>
-      <td><span class=math>&reals;</span></td>
+      <td><span class="math">&reals;</span></td>
       <td>
-        0,
-        <span class=math><?= mSqrt("2"); ?>,
-          &pi;,
-          <var>e</var></span>, etc.
+        <?= mSpan("0, ".mSqrt("2").", &pi;, e"); ?>, etc.
       </td>
     </tr>
 
     <tr>
       <td>complex numbers</td>
-      <td><span class=math>&complexes;</span></td>
-      <td><span class=math>
-        <?= mEval("7, 3+2i, ").mSqrt("-1"); ?>
-      </span>, etc.</td>
+      <td><?= mSpan("&complexes;") ?></td>
+      <td>
+        <?= mEval("7, 3+2i, ").mSqrt("-1"); ?>, etc.
+      </td>
     </tr>
 
   </tbody>
