@@ -16,7 +16,7 @@
    return $ret.__mPostSpan();
  }
 
- function mSqrt($e, $hscale=1.35)
+ function mSqrt($e, $hscale=1.0)
  {
    $ret = __mPreSpan();
    $ret .= " <span class=\"radical\"";

@@ -12,8 +12,8 @@ span.math, span.math span { /* Don't want to modify the display of tables. */
 span.math:not(table.matrix *[rowspan] > *) {
   text-align:       center;
   font-family:
-    TeX Gyre Termes Math, FreeSerif, 
-    Times New Roman, math, serif;
+    TeX Gyre Termes, FreeSerif, 
+    Times New Roman, serif;
   font-size:        var(--math-init-font-size);
   line-height:      1;
 }
