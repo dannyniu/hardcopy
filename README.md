@@ -11,8 +11,5 @@ The single-page output of HardCopy may be fed to HTML-to-PDF
 converter softwares such as WeasyPrint or PrinceXML
 (the names of which are trademarks of their respective owner).
 
-Bundled with the default distribution of HardCopy, is the
-FreeFont fonts from GNU (available at https://gnu.org/s/freefont).
-GNU FreeFont is used to typeset some mathematical expressions,
-you may replace it with other fonts if you find conflicts in
-licensing conditions. For licensing information see doc/Licenses.html. 
+Some 3rd-party fonts are bundled with the default distribution of hardcopy.
+See LICENSE.md for details.
