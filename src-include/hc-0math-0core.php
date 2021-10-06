@@ -83,18 +83,17 @@
    return $ret;
  }
 
- $__mSpanStacking = 0;
- 
- function __mPreSpan()
+ function m()
  {
-   global $__mSpanStacking;
-   if( ($__mSpanStacking++) == 0 )
+   static $opened = false;
+   if( $opened )
+   {
+     $opened = false;
+     return "</span>\n";
+   }
+   else
+   {
+     $opened = true;
      return "<span class=\"math\">";
- }
-
- function __mPostSpan()
- {
-   global $__mSpanStacking;
-   if( (--$__mSpanStacking) == 0 )
-     return "</span>";
+   }
  }

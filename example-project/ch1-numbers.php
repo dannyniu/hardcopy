@@ -47,15 +47,15 @@
       <td>real numbers</td>
       <td><span class="math">&reals;</span></td>
       <td>
-        <?= mSpan("0, ".mSqrt("2").", &pi;, e"); ?>, etc.
+        <?=m()."0, ".mSqrt("2").", &pi;, e".m()?>, etc.
       </td>
     </tr>
 
     <tr>
       <td>complex numbers</td>
-      <td><?= mSpan("&complexes;") ?></td>
+      <td><?=m()."&complexes;".m()?></td>
       <td>
-        <?= mEval("7, 3+2i, ").mSqrt("-1"); ?>, etc.
+        <?=m().mEval("7, 3+2i, ").mSqrt("-1").m()?>, etc.
       </td>
     </tr>
 

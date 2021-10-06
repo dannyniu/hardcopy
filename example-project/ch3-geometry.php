@@ -13,7 +13,7 @@
   Euclidean geometry is the most intuitive geometry
   to work with; there is no curvature in space in
   Euclidean geometry; the norm in Euclidean geometry
-  is <var>p</var>-norm with <?= mEval("p = 2") ?>
+  is <var>p</var>-norm with <?=m().mEval("p = 2").m()?>
   due to Pythagorean theorem
 </p>
 

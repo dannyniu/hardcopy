@@ -356,5 +356,5 @@
    $v = __mEval_str2groups($s);
    $v = __mEval_groups2tree($v);
    $v = __mEval_translate($v);
-   return __mPreSpan().$v.__mPostSpan();
+   return $v;
  }

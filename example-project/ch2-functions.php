@@ -33,15 +33,15 @@
   <caption><?= $tbl1 ?></caption>
 
   <tr><td><span class=math>
-    <?= mEval('\sin &alpha; = ').mFrac(mEval('y'), mEval('h')); ?>
+    <?=m().mEval('\sin &alpha; = ').mFrac(mEval('y'), mEval('h')).m()?>
   </span></td></tr>
 
   <tr><td><span class=math>
-    <?= mEval('\cos &alpha; = ').mFrac(mEval('x'), mEval('h')); ?>
+    <?=m().mEval('\cos &alpha; = ').mFrac(mEval('x'), mEval('h')).m()?>
   </span></td></tr>
 
   <tr><td><span class=math>
-    <?= mEval('\tan &alpha; = ').mFrac(mEval('y'), mEval('2x')); ?>
+    <?=m().mEval('\tan &alpha; = ').mFrac(mEval('y'), mEval('x')).m()?>
   </span></td></tr>
 
 </table>
@@ -50,33 +50,35 @@
   <caption><?= $tbl2 ?></caption>
 
   <tr><td><span class=math>
-    <?= mEval('&lbrace;\sin,\cos,\tan&rbrace; 2k&pi;+&alpha;').' = '.
-        mEval('&lbrace;\sin,\cos,\tan&rbrace; &alpha;').' '.
-        mEval('(k&in;&integers;)'); ?>
+    <?=m().
+       mEval('&lbrace;\sin,\cos,\tan&rbrace; 2k&pi;+&alpha;').' = '.
+       mEval('&lbrace;\sin,\cos,\tan&rbrace; &alpha;').' '.
+       mEval('(k&in;&integers;)').
+       m()?>
   </span></td></tr>
 
   <tr><td><span class=math>
-    <?= mEval('\sin -&alpha; = -\sin &alpha;'); ?>
+    <?=m().mEval('\sin -&alpha; = -\sin &alpha;').m()?>
   </span></td></tr>
 
   <tr><td><span class=math>
-    <?= mEval('\cos -&alpha; = \cos &alpha;'); ?>
+    <?=m().mEval('\cos -&alpha; = \cos &alpha;').m()?>
   </span></td></tr>
 
   <tr><td><span class=math>
-    <?= mEval('\tan -&alpha; = -\tan &alpha;'); ?>
+    <?=m().mEval('\tan -&alpha; = -\tan &alpha;').m()?>
   </span></td></tr>
 
   <tr><td><span class=math>
-    <?= mEval('\sin(&pi;+&alpha;) = -\sin &alpha;'); ?>
+    <?=m().mEval('\sin(&pi;+&alpha;) = -\sin &alpha;').m()?>
   </span></td></tr>
 
   <tr><td><span class=math>
-    <?= mEval('\cos(&pi;+&alpha;) = -\cos &alpha;'); ?>
+    <?=m().mEval('\cos(&pi;+&alpha;) = -\cos &alpha;').m()?>
   </span></td></tr>
 
   <tr><td><span class=math>
-    <?= mEval('\tan(&pi;+&alpha;) = \tan &alpha;'); ?>
+    <?=m().mEval('\tan(&pi;+&alpha;) = \tan &alpha;').m()?>
   </span></td></tr>
 
 </table>

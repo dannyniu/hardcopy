@@ -18,6 +18,21 @@
       displaying maths expressions.
     </p>
 
+    <h4>Function: <code>m(): string</code></h4>
+
+    <p>
+      Whenever a math expression is to be displayed, this function is needed
+      to create a "span" element with "math" class for wrapping.
+      For example, when the math expression
+      <code>mEval('e^{i&pi;}+1 = 0')</code> is to be displayed, it should be
+      wrapped in
+      <code>
+        <b>&lt;?=m().</b>
+        <i>mEval('e^{i&pi;}+1 = 0')</i>
+        <b>.m()?&gt;</b>
+      </code>
+    </p>
+
     <h4>Function: <code>mEval(string $s): string</code></h4>
 
     <p>
