@@ -8,7 +8,7 @@
    foreach( $exts as $ext )
    {
      if( is_file("toc.$ext") ) $toc = "toc.$ext?oc=toc/";
-     if( is_file("$Cover.$ext") ) $cov = "$Cover.$ext";
+     if( is_file("$Cover.$ext") ) $cov = "toc.$ext?oc=$Cover";
    }
  }
 ?>
