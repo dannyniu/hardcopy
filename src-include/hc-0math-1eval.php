@@ -316,7 +316,7 @@
    return $ret;
  }
 
- function __mEval_dumptree__($tree, $ilevel = 0)
+ function __mEval_dumptree($tree, $ilevel = 0)
  {
    $ret = "";
 
@@ -341,12 +341,12 @@
    return $ret;
  }
 
- function __mEval_test__()
+ function __mEval_test()
  {
    $v = __mEval_str2groups("x^{sum_{\cond_1}(y_i)} = prod_{\{cond}^2}(x^{y_i})");
    // print_r($v);
    $v = __mEval_groups2tree($v);
-   echo __mEval_dumptree__($v);
+   echo __mEval_dumptree($v);
    $v = __mEval_translate($v);
    print_r($v);
  }

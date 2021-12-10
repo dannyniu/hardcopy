@@ -1,3 +1,17 @@
+<?php
+ $toc = "toc.html";
+ $cov = "$Cover.html";
+
+ if( $_GET['oc'] ?? null == "pageframe/" )
+ {
+   $exts = [ "php", "htm", "html", ];
+   foreach( $exts as $ext )
+   {
+     if( is_file("toc.$ext") ) $toc = "toc.$ext?oc=toc/";
+     if( is_file("$Cover.$ext") ) $cov = "$Cover.$ext";
+   }
+ }
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -23,10 +37,15 @@
   </head>
   <body>
 
-    <iframe name=toc src="toc.html">
+    <iframe name=toc src="<?= htmlspecialchars($toc) ?>">
     </iframe>
 
-    <?php $mainsrc = $Cover === null ? "about:blank" : "$Cover.html"; ?>
+    <?php
+     $mainsrc =
+       $Cover === null ?
+       "about:blank" :
+       htmlspecialchars($cov);
+    ?>
     <iframe name=main src="<?= htmlspecialchars($mainsrc) ?>">
     </iframe>
 

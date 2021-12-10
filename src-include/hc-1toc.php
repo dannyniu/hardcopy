@@ -1,4 +1,6 @@
 <?php
+ $__exts__ = [ "php", "htm", "html", ];
+
  $Title = "Untitled";
  $Cover = null;
 
@@ -27,6 +29,7 @@
  // - page -:
  //   name: - Argument ``$p'' to hcAddPage.
  //   anchorpos: - count($Anchor) when hcAddPage was invoked -.
+ //   ext:
  $Pages = [];
 
  $Target = "";
@@ -43,7 +46,7 @@
  $OutputControl = getenv("HARDCOPY_OUTPUT_CONTROL");
  if( $OutputControl === false ) $OutputControl = "";
 
- function __hc_Hn__($s, $n)
+ function __hc_Hn($s, $n)
  {
    global $CurrentPage, $Counters;
    global $Anchors, $AnchorsStats;
@@ -71,13 +74,13 @@
 
      for($i=$n; $i<4; $i++)
        $Counters[$i] = 0;
-     
+
      if( $n == 1 )
      {
        $Counters[4] = 0;
        $Counters[5] = 0;
      }
-     
+
      if( $n == 1 && $Counters[0] === "@" )
        $Counters[0] = "A"; // Not we're in an annex.
      else
@@ -102,10 +105,10 @@
    }
  }
 
- function hc_H1($s){ return __hc_Hn__($s, 1); }
- function hc_H2($s){ return __hc_Hn__($s, 2); }
- function hc_H3($s){ return __hc_Hn__($s, 3); }
- function hc_H4($s){ return __hc_Hn__($s, 4); }
+ function hc_H1($s){ return __hc_Hn($s, 1); }
+ function hc_H2($s){ return __hc_Hn($s, 2); }
+ function hc_H3($s){ return __hc_Hn($s, 3); }
+ function hc_H4($s){ return __hc_Hn($s, 4); }
  // h5 and h6 are reserved for intra-section unnumbered subtitles.
 
  function hc_Table($s)
@@ -198,6 +201,13 @@
    $Counters[0] = "@";
  }
 
+ function __pagename2filename($s)
+ {
+   if( is_string($_GET['oc'] ?? null) )
+     return "toc.php?".http_build_query([ 'oc' => $s]);
+   else return "$s.html";
+ }
+
  function hcNamedSection($s, $type=null)
  {
    // Also usable with tables and figures
@@ -214,7 +224,8 @@
 
      $href = "#".$anchor["id"];
      if( $OutputControl !== "" )
-       $href = $anchor["page"].".html$href";
+       $href = __pagename2filename($anchor["page"]).$href;
+     $href = htmlspecialchars($href);
 
      return "<a $Target href=\"$href\">".$anchor["title"]."</a>";
    }
@@ -229,21 +240,19 @@
 
  function hcAddPages($p)
  {
+   global $__exts__;
    global $CurrentPage, $Anchors, $Pages;
-   $Candid = [
-     "$p.php",
-     "$p.htm",
-     "$p.html",
-   ];
 
-   foreach( $Candid as $cand )
+   foreach( $__exts__ as $ext )
    {
+     $cand = "$p.$ext";
      if( is_file($cand) )
      {
        $CurrentPage = $p;
        $page = [];
        $page["name"] = $p;
        $page["anchorpos"] = count($Anchors);
+       $page["ext"] = $ext;
        $Pages[] = $page;
 
        include($cand);
@@ -253,7 +262,7 @@
    return;
  }
 
- function __hc_OutputTocIndex__($statname, $listhead, $matchtype)
+ function __hc_OutputTocIndex($statname, $listhead, $matchtype)
  {
    global $Anchors, $AnchorsStats;
    global $Target, $OutputControl;
@@ -270,7 +279,8 @@
 
        $href = "#".$anchor["id"];
        if( $OutputControl !== "" )
-         $href = $anchor["page"].".html$href";
+         $href = __pagename2filename($anchor["page"]).$href;
+       $href = htmlspecialchars($href);
 
        echo "<li><a $Target href=\"$href\">".$anchor["title"]."</a></li>\n";
      }
@@ -279,28 +289,36 @@
    }
  }
 
- function __hc_OutputNavbar__($pageind, $pagecnt)
+ function __hc_OutputNavbar($pageind, $pagecnt)
  {
    global $Pages, $Target;
 
    $prev = null;
    if( $pageind > 0 )
    {
-     $prev = $Pages[$pageind-1]["name"];
-     $prev = " <a $Target href=\"$prev.html\">[Previous]</a> ";
+     $page = $Pages[$pageind-1];
+     $href = __pagename2filename($page["name"]);
+     $href = htmlspecialchars($href);
+     $prev = " <a $Target href=\"$href\">[Previous]</a> ";
    }
 
    $next = null;
    if( $pageind+1 < $pagecnt )
    {
-     $next = $Pages[$pageind+1]["name"];
-     $next = " <a $Target href=\"$next.html\">[Next]</a> ";
+     $page = $Pages[$pageind+1];
+     $href = __pagename2filename($page["name"]);
+     $href = htmlspecialchars($href);
+     $next = " <a $Target href=\"$href\">[Next]</a> ";
    }
 
    $ret = "";
+   $toc = "toc.html";
+
+   if( is_string($_GET['oc'] ?? null) ) $toc = "toc.php?oc=toc/";
+
    $ret .= "<nav class=navbar-multipage>\n";
    $ret .= $prev ?? " <a>(first)</a> ";
-   $ret .= " <a target=toc href=\"toc.html\">[Table of Contents]</a> ";
+   $ret .= " <a target=toc href=\"$toc\">[Table of Contents]</a> ";
    $ret .= $next ?? " <a>(last)</a> ";
    $ret .= "</nav>\n\n";
 
@@ -309,6 +327,7 @@
 
  function hcFinish()
  {
+   global $__exts__;
    global $Title, $Cover;
    global $Anchors, $AnchorsStats;
    global $Pages, $Target, $AnchorPos, $PageCanBegin, $OutputControl;
@@ -370,16 +389,13 @@
    $PageCanBegin = true;
 
    // Output cover page.
+   $CoverFile = null;
+
    if( $OutputControl === "" || $OutputControl === $Cover )
    {
-     $Candid = [
-       "$Cover.php",
-       "$Cover.htm",
-       "$Cover.html",
-     ];
-
-     foreach( $Candid as $cand )
+     foreach( $__exts__ as $ext )
      {
+       $cand = "$Cover.$ext";
        if( is_file($cand) )
        {
          include($cand);
@@ -389,47 +405,38 @@
      }
    }
 
-   if( $OutputControl === "toc/" )
+   if( is_string($Cover) && $OutputControl === "toc/" )
    {
+     $href = __pagename2filename($Cover);
+     $href = htmlspecialchars($href);
      echo "\n<div class=toc-list-head>";
-     echo "<a $Target href=\"$Cover.html\">Cover Page</a>";
+     echo "<a $Target href=\"$href\">Cover Page</a>";
      echo "</div>\n\n";
    }
 
    // Output table of content and index.
    if( $OutputControl === "" || $OutputControl === "toc/" )
    {
-     __hc_OutputTocIndex__("headings", "Table of Contents", '/^h[1-4]$/');
-     __hc_OutputTocIndex__("tables", "Tables", '/^table$/');
-     __hc_OutputTocIndex__("figures", "Figures", '/^figure$/');
+     __hc_OutputTocIndex("headings", "Table of Contents", '/^h[1-4]$/');
+     __hc_OutputTocIndex("tables", "Tables", '/^table$/');
+     __hc_OutputTocIndex("figures", "Figures", '/^figure$/');
      echo "\n<div class=\"pagebreak\"></div>\n\n";
    }
 
+   // Output document contents.
    $cnt = count($Pages);
    for($i=0; $i<$cnt; $i++)
    {
      $page = $Pages[$i];
      $p = $page["name"];
+     $ext = $page["ext"];
      $PageCanBegin = $p === $OutputControl || $OutputControl === "";
 
-     $navbar = __hc_OutputNavbar__($i, $cnt);
+     $navbar = __hc_OutputNavbar($i, $cnt);
      if( $PageCanBegin && $OutputControl !== "" )
        echo $navbar;
 
-     $Candid = [
-       "$p.php",
-       "$p.htm",
-       "$p.html",
-     ];
-
-     foreach( $Candid as $cand )
-     {
-       if( is_file($cand) )
-       {
-         include($cand);
-         break;
-       }
-     }
+     include("$p.$ext");
 
      if( $PageCanBegin && $OutputControl !== "" )
        echo $navbar;
@@ -467,7 +474,8 @@
    $anchor = $NamedAnchors[$id];
    $href = "#namedanchor-$id";
    if( $OutputControl !== "" )
-     $href = $anchor["page"].".html$href";
+     $href = __pagename2filename($anchor["page"]).$href;
+   $href = htmlspecialchars($href);
 
    return "<a $Target href=\"$href\">".$anchor["text"]."</a>";
  }
