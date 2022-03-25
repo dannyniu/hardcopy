@@ -203,8 +203,8 @@
 
  function __pagename2filename($s)
  {
-   if( is_string($_GET['oc'] ?? null) )
-     return "toc.php?".http_build_query([ 'oc' => $s]);
+   if( getenv("ocget") === "false" )
+     return "toc.php?".http_build_query([ 'oc' => $s ]);
    else return "$s.html";
  }
 
@@ -314,7 +314,7 @@
    $ret = "";
    $toc = "toc.html";
 
-   if( is_string($_GET['oc'] ?? null) ) $toc = "toc.php?oc=toc/";
+   if( getenv("ocget") !== "true" ) $toc = "toc.php?oc=toc/";
 
    $ret .= "<nav class=navbar-multipage>\n";
    $ret .= $prev ?? " <a>(first)</a> ";
@@ -371,7 +371,9 @@
 
    foreach( glob(getenv("HARDCOPY_SRCINC")."/*.css") as $css )
    {
-     echo "    <link rel=stylesheet href=\"".htmlspecialchars($css)."\">\n";
+     $ssn = preg_replace('#^.*/([^/]+)$#', '$1', $css);
+     $ssn = getenv("HARDCOPY_SRCBLD")."/$ssn";
+     echo "    <link rel=stylesheet href=\"".htmlspecialchars($ssn)."\">\n";
    }
 
    foreach( glob("assets/*.css") as $css )
@@ -399,7 +401,7 @@
        if( is_file($cand) )
        {
          include($cand);
-         echo "\n<div class=pagebreak></div>\n\n";
+         echo "\n<div class=\"pagebreak\"></div>\n\n";
          break;
        }
      }
@@ -478,4 +480,9 @@
    $href = htmlspecialchars($href);
 
    return "<a $Target href=\"$href\">".$anchor["text"]."</a>";
+ }
+
+ function cite($id)
+ {
+   return "<sup>".hcNamedHref($id)."</sup>";
  }

@@ -58,16 +58,35 @@ span.radical { /* The radical sign just before the expression. */
 /* decoration, superscript, subscript. */
 span.deco, sup, sub {
   display:          inline-block;
-  font-size:        59.76%; /* rsqrt(2.8) */
+  font-size:        74.54%; /* rsqrt(1.8) */
 }
 
 span.enco { /* encompass. */
-  font-size:        167.3%; /* sqrt(2.8) */
+  font-size:        134.2%; /* sqrt(1.8) */
 }
 
 span.enco2 { /* encompass twice. */
-  font-size:        280%;
+  font-size:        180%;
   padding:          0.2ex 0.0ex;
+}
+
+span.enco2-int { /* encompass twice. */
+  transform:        scaleY(2.8) skewX(-28deg);
+  padding:          0.2ex 0.0ex;
+}
+
+span.enco2-int ~ span.aleft {
+  position:         relative;
+}
+
+span.enco2-int ~ span.aleft span.rsh {
+  position:         relative;
+  left:             1ex;
+}
+
+span.enco2-int ~ span.aleft span.lsh {
+  position:         relative;
+  left:             -1ex;
 }
 
 span.deco, span.enco {

@@ -2,13 +2,13 @@
  $toc = "toc.html";
  $cov = "$Cover.html";
 
- if( $_GET['oc'] ?? null == "pageframe/" )
+ if( $OutputControl == "pageframe/" )
  {
    $exts = [ "php", "htm", "html", ];
    foreach( $exts as $ext )
    {
-     if( is_file("toc.$ext") ) $toc = "toc.$ext?oc=toc/";
-     if( is_file("$Cover.$ext") ) $cov = "toc.$ext?oc=$Cover";
+     if( is_file("toc.$ext") ) $toc = "toc.php?oc=toc/";
+     if( is_file("$Cover.$ext") ) $cov = "toc.php?oc=$Cover";
    }
  }
 ?>

@@ -27,7 +27,7 @@
    return $ret;
  }
 
- function mCbrt($e, $hscale=1)
+ function mCbrt($e, $hscale=1.0)
  {
    $ret = "";
    $ret .= " <span class=\"radical\"";
@@ -74,11 +74,12 @@
  {
    $ret = "";
    $ret .= " <span class=\"deco\">\n";
-   $ret .= "  <span class=\"enco2\">$int</span>\n";
-   $ret .= "  <span class=\"aleft\">$u<br>\n";
+   $ret .= "  <span class=\"enco2-int\">$int</span>\n";
+   $ret .= "  <span class=\"aleft\">\n";
+   $ret .= "   <span class=\"rsh\">$u</span><br>\n";
    $ret .= "   &ZeroWidthSpace;<br>\n";
    $ret .= "   &ZeroWidthSpace;<br>\n";
-   $ret .= "   $i";
+   $ret .= "   <span class=\"lsh\">$i</span>\n";
    $ret .= " </span></span> $e \n";
    return $ret;
  }
@@ -113,10 +114,11 @@
    $ret = "";
    $abs     = [ "&#x23b8;", "&#x23b8;", "&#x23b8;", "&#x23b8;", "&#x23b8;", "&#x23b8;", ];
    $bracket = [ "&#x23a1;", "&#x23a2;", "&#x23a3;", "&#x23a4;", "&#x23a5;", "&#x23a6;", ];
-   $paren   = [ "&#x239b;", "&#x239c;", "&#x239d;", "&#x23a7;", "&#x23a8;", "&#x23a9;", ];
+   $paren   = [ "&#x239b;", "&#x239c;", "&#x239d;", "&#x239e;", "&#x239f;", "&#x23a0;", ];
    $enclose = null;
 
    if( !$lineheight ) $lineheight = $rows;
+   $lineheight = intval($lineheight);
    switch( $style )
    {
      case "abs":

@@ -1,14 +1,13 @@
 <?php
  require_once(getenv("HARDCOPY_SRCINC_MAIN"));
 
- $Title = "Test Maths Doc";
+ $Title = "Test Doc on the Topic of Cryptography";
  $Cover = "abs-cover";
 
- hcAddPages("ch1-numbers");
- hcAddPages("ch2-functions");
- hcAddPages("ch3-geometry");
+ hcAddPages("ch01_02-crypto");
+ hcAddPages("ch03-maths");
 
  hc_StartAnnexes();
- hcAddPages("ch_a-people");
-
+ hcAddPages("ch_a-refs");
+ 
  hcFinish();

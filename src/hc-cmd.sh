@@ -26,6 +26,7 @@ if ! [ "$HARDCOPY_DIR" ] ; then
 fi
 
 export HARDCOPY_SRCINC="$HARDCOPY_DIR/src-include"
+export HARDCOPY_SRCBLD="$HARDCOPY_DIR/src-include"
 export HARDCOPY_SRCINC_MAIN="$HARDCOPY_SRCINC/hardcopy.php"
 
 hcBrowserPreview()
@@ -42,18 +43,18 @@ __hcBuildVariant__()
     variant="$1"
 
     mkdir -p build/"$variant" build/"$variant"/src-include
-
-    cp src-include/*.css build/"$variant"/src-include
+    cp $HARDCOPY_SRCINC/*.css build/"$variant"/src-include
+    export HARDCOPY_SRCBLD=./src-include
 
     [ "$HARDCOPY_NOGPL" ] ||
         cp -R \
-           src-include/gnu-freefont \
+           $HARDCOPY_SRCINC/gnu-freefont \
            build/"$variant"/src-include
 
     [ "$HARDCOPY_NOTEX" ] ||
         cp -R \
-           src-include/tex-gyre \
-           src-include/tex-gyre-math \
+           $HARDCOPY_SRCINC/tex-gyre \
+           $HARDCOPY_SRCINC/tex-gyre-math \
            build/"$variant"/src-include
 
     if [ -d assets ] ; then
@@ -69,14 +70,15 @@ hcBuildMultipage()
 {
     __hcBuildVariant__ multipage
 
-    HARDCOPY_OUTPUT_CONTROL=pagelist/ php toc.php | (
+    HARDCOPY_OUTPUT_CONTROL=pagelist/ php toc.php | {
         export HARDCOPY_OUTPUT_CONTROL=toc/
         php toc.php > build/multipage/toc.html
+        
         while read page ; do
             export HARDCOPY_OUTPUT_CONTROL="$page"
             php toc.php > build/multipage/"$page".html
         done
-    )
+    }
 
     HARDCOPY_OUTPUT_CONTROL=pageframe/ > build/multipage/frame.html \
                            php toc.php
@@ -85,7 +87,7 @@ hcBuildMultipage()
 hcBuildSinglepage()
 {
     __hcBuildVariant__ singlepage
-
+    
     HARDCOPY_OUTPUT_CONTROL="" > build/singlepage/main.html \
                            php toc.php
 }
@@ -106,7 +108,7 @@ done
 shift $((OPTIND - 1))
 
 if ! [ -f toc.php ] ; then
-    log '"toc.php" is not found in the current directory!'
+    echo '"toc.php" is not found in the current directory!'
     exit 1
 fi
 
