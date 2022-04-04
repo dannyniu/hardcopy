@@ -7,6 +7,7 @@ span.math, span.math span { /* Don't want to modify the display of tables. */
   position:         relative; /* 2020-03-14: Really usefull? */
   display:          inline-block;
   break-inside:     avoid;
+  white-space:      nowrap;
 }
 
 span.math:not(table.matrix *[rowspan] > *) {
@@ -71,6 +72,9 @@ span.enco2 { /* encompass twice. */
 }
 
 span.enco2-int { /* encompass twice. */
+  font-family:
+    TeX Gyre Termes Math, FreeSerif,
+    Times New Roman, serif;
   transform:        scaleY(2.8) skewX(-28deg);
   padding:          0.2ex 0.0ex;
 }
