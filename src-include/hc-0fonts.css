@@ -1,27 +1,27 @@
 @font-face {
   font-family:      FreeSerif;
-  src:              url("gnu-freefont/FreeSerif.woff");
+  src:              url("gnu-freefont/FreeSerif.otf");
   font-style:       normal;
   font-weight:      normal;
 }
 
 @font-face {
   font-family:      FreeSerif;
-  src:              url("gnu-freefont/FreeSerifItalic.woff");
+  src:              url("gnu-freefont/FreeSerifItalic.otf");
   font-style:       italic;
   font-weight:      normal;
 }
 
 @font-face {
   font-family:      FreeSerif;
-  src:              url("gnu-freefont/FreeSerifBold.woff");
+  src:              url("gnu-freefont/FreeSerifBold.otf");
   font-style:       normal;
   font-weight:      bold;
 }
 
 @font-face {
   font-family:      FreeSerif;
-  src:              url("gnu-freefont/FreeSerifBoldItalic.woff");
+  src:              url("gnu-freefont/FreeSerifBoldItalic.otf");
   font-style:       italic;
   font-weight:      bold;
 }
