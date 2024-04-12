@@ -2,6 +2,7 @@
  require_once(getenv("HARDCOPY_SRCINC_MAIN"));
 
  $hdr1 = hc_H1("Maths Typesetting Demo");
+ $hdr2 = hc_H1("Section Reference");
 
  if( !hcPageBegin() ) return;
 ?>
@@ -50,3 +51,7 @@
   <p>&<# &<% e^t &> = &<mInt -&infin; &; t &; &<% e^x &delta;x &> &> &>
   </p>
 </div>
+
+<?= $hdr2 ?>
+
+&<hcNamedSection CRYSTALS: Kyber and Dilithium &>

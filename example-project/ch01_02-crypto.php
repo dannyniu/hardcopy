@@ -152,10 +152,10 @@
 </p>
 
 <p>
-  For both algorithms, their core computation involve modular lattice.
-  In essence, using modular lattice can increase the difficulty of lattice
-  reduction attack at just fraction of the bandwidth cost, whilest decreasing
-  the potential attackable structures within when compared to ring lattice.
+  Both algorithms are based on module variant of LWE and SIS hard problems.
+  In essence, using module-based scheme can increase the difficulty of lattice
+  reduction attack at just fraction of the bandwidth cost, whilest minimizing
+  the potential attackable structures when compared to ring-based schemes.
 </p>
 
 <p>
@@ -163,9 +163,9 @@
   lattice) or full polynomial rings, the cryptosystems work with matrices of
   polynomial rings at a moderate degree. With NTT the number-theoretic
   transformation which provides a way to accelerate the computation on
-  the ring modules, increasing security can be as easy as increasing
-  the number of ring modules without revising the code to work with anything
-  radically different.
+  the underlying polynomial, increasing security can be as easy as increasing
+  the dimension of the matrix to add more polynomial elements without revising
+  the code to work with anything radically different.
 </p>
 
 <p>
@@ -186,7 +186,7 @@
   paren &; 8 &> &>
 
   <p>
-    The Kyber algorithm is a key establishment scheme based on LPR-style
+    The Kyber algorithm is a key encapsulation mechanism based on LPR-style
     encryption <?= cite("ref-lpr-2010") ?> , whereas Dilithium is a
     Fiat-Shamir-style digital signature scheme based on the framework of
     Vadim Lyubashevsky <?= cite("ref-Lyu-2011") ?>
