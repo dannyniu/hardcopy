@@ -36,6 +36,10 @@
  $AnchorPos = 0;
  $PageCanBegin = false;
 
+ // 1 $GLOBALS['hcPreprocExit'] defined elsewhere.
+ if( !isset($GLOBALS['hcPreprocExit']) )
+   $GLOBALS['hcPreprocExit'] = false;
+
  // - Empty string to output everything in 1 page.
  // - "pagelist/" to list page names line-by-line.
  // - "toc/" to output table of content and index.
@@ -235,7 +239,7 @@
  function hcPageBegin()
  {
    global $PageCanBegin;
-   return $PageCanBegin;
+   return $PageCanBegin && !$GLOBALS['hcPreprocExit'];
  }
 
  function hcAddPages($p)
@@ -331,6 +335,9 @@
    global $Title, $Cover;
    global $Anchors, $AnchorsStats;
    global $Pages, $Target, $AnchorPos, $PageCanBegin, $OutputControl;
+
+   if( $GLOBALS['hcPreprocExit'] === true )
+     return;
 
    if( $OutputControl === "pagelist/" )
    {

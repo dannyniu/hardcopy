@@ -31,9 +31,12 @@ export HARDCOPY_SRCINC_MAIN="$HARDCOPY_SRCINC/hardcopy.php"
 
 hcBrowserPreview()
 {
-    bind="${2:-0.0.0.0}:${1:-8080}"
+    port="${1:-8080}"
+    addr="${2:-0.0.0.0}"
+    host="${2:-127.0.0.1}:${port}"
+    bind="${addr}:${port}"
     echo
-    echo Open "\"http://$bind/$(basename "$PWD")/toc.php\"" in browser.
+    echo Open "\"http://${host}/$(basename "$PWD")/toc.php\"" in browser.
     echo
     php -S "$bind" -t ..
 }
