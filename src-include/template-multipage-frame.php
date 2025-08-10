@@ -2,7 +2,7 @@
  $toc = "toc.html";
  $cov = "$Cover.html";
 
- if( $OutputControl == "pageframe/" )
+ if( getenv("variant") != "multipage" )
  {
    $exts = [ "php", "htm", "html", ];
    foreach( $exts as $ext )

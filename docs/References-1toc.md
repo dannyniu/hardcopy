@@ -25,10 +25,10 @@ In the 1st phase:
 
 In the 2nd phase:
 
-1. The build system takes special code paths to produce cover page, 
+1. The build system takes special code paths to produce cover page,
    table of contents and indicies, and auxiliary files.
 
-2. The build system returns the recorded occurances of *anchors* to the 
+2. The build system returns the recorded occurances of *anchors* to the
    chapter files, enable their output, and redirect their output to build
    destinations. The *anchors* are decorated with section numbers, table and
    figure numbers, and anchor IDs.
@@ -57,9 +57,11 @@ prefixed with "Annex ".
 
 Returns an hyperlink anchor to a known section.
 
-## Function: `hcPageBegin(): bool`
+## Function: `hcPageBegin(): bool` (Deprecated)
 
 Suppresses or enables output based on the current build phase.
+
+The use of this function is no longer necessary.
 
 ## Function: `hcAddPages(string $p): string`
 

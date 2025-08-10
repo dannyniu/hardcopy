@@ -43,7 +43,7 @@ hcBrowserPreview()
 
 __hcBuildVariant__()
 {
-    variant="$1"
+    export variant="$1"
 
     mkdir -p build/"$variant" build/"$variant"/src-include
     cp $HARDCOPY_SRCINC/*.css build/"$variant"/src-include
@@ -76,7 +76,7 @@ hcBuildMultipage()
     HARDCOPY_OUTPUT_CONTROL=pagelist/ php toc.php | {
         export HARDCOPY_OUTPUT_CONTROL=toc/
         php toc.php > build/multipage/toc.html
-        
+
         while read page ; do
             export HARDCOPY_OUTPUT_CONTROL="$page"
             php toc.php > build/multipage/"$page".html
@@ -90,7 +90,7 @@ hcBuildMultipage()
 hcBuildSinglepage()
 {
     __hcBuildVariant__ singlepage
-    
+
     HARDCOPY_OUTPUT_CONTROL="" > build/singlepage/main.html \
                            php toc.php
 }

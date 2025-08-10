@@ -1,12 +1,9 @@
 <?php
  require_once(getenv("HARDCOPY_SRCINC_MAIN"));
 
- $hdr1 = hc_H1("Maths Typesetting Demo");
- $hdr2 = hc_H1("Section Reference");
-
- if( !hcPageBegin() ) return;
+ #if( !hcPageBegin() ) return;
 ?>
-<?= $hdr1 ?>
+<?= hc_H1("Maths Typesetting Demo") ?>
 
 <p>
   This page contains demos for typesetting some everyday maths expressions
@@ -52,6 +49,6 @@
   </p>
 </div>
 
-<?= $hdr2 ?>
+<?= hc_H1("Section Reference") ?>
 
 &<hcNamedSection CRYSTALS: Kyber and Dilithium &>

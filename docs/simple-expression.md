@@ -5,7 +5,7 @@ SYNOPSIS
 mEval(string $s): string
 ```
 
-Evaluates simple expression and produce HTML markup. 
+Evaluates simple expression and produce HTML markup.
 
 DESCRIPTION
 ===========
@@ -18,7 +18,7 @@ The 52 upper and lower case Latin, 48 upper and lower case Greek,
 and 1 <GREEK SMALL LETTER FINAL SIGMA> U+03C2 are automatically
 surrounded with the HTML "var" tag, unless they're in a text escape.
 These characters along with ASCII digits [0-9], are what is being
-considered as ''alpha-numeral'' characters. 
+considered as ''alpha-numeral'' characters.
 
 The <backslash> character (U+005C) is the "text escape" character.
 It has 2 forms.
@@ -38,7 +38,7 @@ It has 2 forms.
 
 The "text escape" character is intended to enable writers to include
 function names that are literal texts (e.g. "AES-256"), that are
-not italicized as variables. 
+not italicized as variables.
 
 The <CIRCUMFLEX ACCENT> character U+005E is the "super script" character.
 The exactly 1 character (measured in a Unicode code point), or exactly
@@ -53,9 +53,9 @@ HTML "sub" tag.
 The "{" <left brace> character U+007B is the grouping introducer, and
 the "}" <right brace> character U+007D is the grouping terminator.
 Anything between the two characters is put into a grouping,
-which is then considered as a single unit. 
+which is then considered as a single unit.
 The "{" must not be preceeded by a <backslash>. The grouping may be
-arbitrarily nested. 
+arbitrarily nested.
 
 Escaping
 --------
@@ -66,12 +66,12 @@ output is HTML, they should be escaped using HTML entities.
 
 However, due to the widespread use of relational operators, the sequences:
 "<", ">", "<=", and ">=" are replaced with &lt; &gt; &le; and &ge;
-respectively. 
+respectively.
 
 IMPLEMENTATION DETAILS
 ======================
 
-The function converts a simple expression to HTML code in 3 stages: 
+The function converts a simple expression to HTML code in 3 stages:
 
 1. Construct grouping tree.
 2. Construct token list-tree from grouping tree.
@@ -97,10 +97,10 @@ Because HTML entities are preserved to the serialization stage 3,
 and because sub/super-script work by default on the next 1 character,
 HTML entities have to be put into grouping for them to be correctly
 formatted. If an HTML entity is not put into grouping, then only the
-beginning "&" is put into sub/super-script. 
+beginning "&" is put into sub/super-script.
 
 HISTORY
 =======
 
-- 2020-03-21, "hc-0math-1eval.php" is being commentated. 
+- 2020-03-21, "hc-0math-1eval.php" is being commentated.
 - 2021-09-30, 1 typo is corrected; the file had been converted to MarkDown.

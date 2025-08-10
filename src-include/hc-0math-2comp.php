@@ -87,7 +87,7 @@
  function mSupSub($sup=null, $sub=null, $align="left")
  {
    $ret = "";
-   
+
    if( $sup === null && $sub === null )
      $ret .= "";
 

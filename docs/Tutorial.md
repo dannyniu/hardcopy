@@ -2,19 +2,19 @@ Introduction
 ============
 
 Hardcopy is a PHP-based document template system that's designed to
-output to HTML with a plain visual style. It can output both 
+output to HTML with a plain visual style. It can output both
 single-page and multi-age forms that're suitable for both print and
 web-browsing.
 
-Hardcopy provides a set of functions aiding creation of documents 
-with section headings, hyper-linking, and some commonly-used 
+Hardcopy provides a set of functions aiding creation of documents
+with section headings, hyper-linking, and some commonly-used
 basic mathematic notations.
 
 The single-page output of Hardcopy may be fed to HTML-to-PDF
-converter softwares such as WeasyPrint or PrinceXML (which are 
+converter softwares such as WeasyPrint or PrinceXML (which are
 intellectual properties of their respective owner).
 
-Bundled with the default distribution of Hardcopy, is the 
+Bundled with the default distribution of Hardcopy, is the
 FreeFont fonts from GNU (available at <https://gnu.org/s/freefont">).
 GNU FreeFont had been used for typesetting some mathematical expressions,
 with TeX Gyre fonts being the now the new default option. You may replace
@@ -58,8 +58,8 @@ then create the project directory next to the `src-include` directory.
    images, create the <samp>assets</samp> directory.
 
 After preparation, we can add contents to the project. **[Note]** In the
-following steps, all filenames specified to the template system must 
-have their filename extensions (e.g. <samp>.php</samp>, <samp>.html</samp>) 
+following steps, all filenames specified to the template system must
+have their filename extensions (e.g. <samp>.php</samp>, <samp>.html</samp>)
 removed.
 
 1. Add the PHP start tag `<?php` to the first line of `toc.php`
@@ -69,8 +69,8 @@ removed.
 3. Set the main title of the entire document by assigning to the
    `$Title` variable.
 
-4. **[Optional]** Specify a cover page (possibly containing book title, 
-   abstract, and/or preface, etc.) by assigning to the <code>$Cover</code> 
+4. **[Optional]** Specify a cover page (possibly containing book title,
+   abstract, and/or preface, etc.) by assigning to the <code>$Cover</code>
    variable, the name of the hypertext file.
 
 5. Add chapters (or other types of document fragments) by calling
@@ -80,29 +80,17 @@ removed.
 
 Chapter files are typically created like this:
 
-1. Add the PHP start tag `<?php` to the first line of the chapter file
-   to begin the chapter declaration block.
+1. Add a PHP block containing `require_once(getenv("HARDCOPY_SRCINC_MAIN"));`
+   and any other declarations that the user may desire.
 
-2. Add `require_once(getenv("HARDCOPY_SRCINC_MAIN"));` to the 2nd line.
+2. Insert headings - i.e. the h1-h4 elements using the `hc_H[1-4]` functions,
 
-3. Declare headings and table and figure indicies by calling
-   `hc_H[1-4]`, `hc_Table`, `hc_Figure` and assigning their 
-   return values to variables.
+3. Anchors for tables and figures are added with the `hc_Table` and
+   the `hc_Figure` functions. They may be encosed in the `<caption>` and
+   the `<figcaption>` HTML element tags.
 
-4. End the chapter declaration block with the following statement followed
-   by a PHP closing tag: `if( !hcPageBegin() ) return;`
-
-5. Add chapter content to the rest of the file. Note that:
-
-   - To add section heading, echo the variable storing the heading title with
-     the `<?=` and `?>` tags, without the surrounding `<h[1-4]>` tags.
-
-   - To add table and figure caption, echo the variable storing the table and
-     figure title with the `<?=` and `?>` tags usually surrounded with the
-     `<caption>` and the `<figcaption>` tags.
-
-   - There should not be boilerplate elements such as
-     `DOCTYPE`, `html`, `head`, `body` or their openning and closing tags.
+- **Note** There should not be boilerplate elements such as
+  `DOCTYPE`, `html`, `head`, `body` or their openning and closing tags.
 
 Building the Project
 ====================
@@ -110,7 +98,7 @@ Building the Project
 A project can be built in single-page or multi-page variants. Other variants
 may be added in the future.
 
-To build a project in single-page variant, change to the project directory, 
+To build a project in single-page variant, change to the project directory,
 then execute `hc-cmd.sh` from the `src` directory:
 
 ```
@@ -127,7 +115,7 @@ The options `-s` and `-m` are build specifiers. An additional `-v` flag
 is supported for turning on verbose diagnostics. For browser preview on
 local network, you may run `hc-cmd.sh` without build specifiers.
 
-After building the single-page variant of the project, at least the 
+After building the single-page variant of the project, at least the
 following directory entries should appear:
 
 - `build/singlepage/main.html`

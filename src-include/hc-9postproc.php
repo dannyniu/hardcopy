@@ -101,32 +101,46 @@
      $str = "";
      $len = 0;
      $c = "";
+     $mute = true;
 
      while( !feof($fp) )
      {
        $c = fread($fp, 1);
-       if( $c == "&" )
+       if( $c == "\x02" ) // ASCII Start Of Text.
        {
-         $c = fread($fp, 1);
-
-         if( $c == "<" )
+         $mute = false;
+         continue;
+       }
+       else if( $c == "\x03" ) // ASCII End Of Text.
+       {
+         $mute = true;
+         continue;
+       }
+       else if( !$mute )
+       {
+         if( $c == "&" )
          {
-           $s = self::__parse_1directive($fp);
-           $str .= $s;
-           $len += strlen($str);
+           $c = fread($fp, 1);
+
+           if( $c == "<" )
+           {
+             $s = self::__parse_1directive($fp);
+             $str .= $s;
+             $len += strlen($str);
+           }
+           else
+           {
+             $str .= "&".$c;
+             $len += 2;
+           }
          }
          else
          {
-           $str .= "&".$c;
-           $len += 2;
+           $str .= $c;
+           $len++;
          }
        }
-       else
-       {
-         $str .= $c;
-         $len++;
-       }
-       
+
        if( $len >= self::$str_buffer )
        {
          echo $str;

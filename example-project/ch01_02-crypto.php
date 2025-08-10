@@ -1,17 +1,7 @@
 <?php
  require_once(getenv("HARDCOPY_SRCINC_MAIN"));
 
- $hdr1 = hc_H1("Symmetric-Key Cryptography");
-
- $hdr1_1 = hc_H2("Blockciphers");
- $hdr1_2 = hc_H2("Hash Functions");
-
- $hdr2 = hc_H1("Public-Key Cryptography");
-
- $hdr2_1 = hc_H2("RSA");
- $hdr2_2 = hc_H2("CRYSTALS: Kyber and Dilithium");
-
- if( !hcPageBegin() ) return;
+ //if( !hcPageBegin() ) return;
 ?>
 
 <p>
@@ -20,9 +10,9 @@
   blockcipher and hash functions; and some well-known public-key algorithms.
 </p>
 
-<?= $hdr1 ?>
+<?= hc_H1("Symmetric-Key Cryptography") ?>
 
-<?= $hdr1_1 ?>
+<?= hc_H2("Blockciphers") ?>
 
 <p>
   Blockciphers are keyed pseudo-random permutations of fixed-width data.
@@ -42,7 +32,7 @@
   &<$ L_k &> is the key length in bytes.
 </p>
 
-<?= $hdr1_2 ?>
+<?= hc_H2("Hash Functions") ?>
 
 <p>
   Hash functions take an arbitrary-length message, compress it, and produce
@@ -94,7 +84,7 @@
   <li> &<$ M_1 | M_2 | ... | M_n = pad(M) &> </li>
 </ul>
 
-<?= $hdr2 ?>
+<?= hc_H1("Public-Key Cryptography") ?>
 
 <p>
   Public-key cryptography is the class of cryptography where algorithms
@@ -105,7 +95,7 @@
   of the latter.
 </p>
 
-<?= $hdr2_1 ?>
+<?= hc_H2("RSA") ?>
 
 <p>
   RSA is one of the earliest practical public-key cryptosystems discovered by
@@ -116,7 +106,7 @@
   In the original RSA <?= cite("ref-rsa78") ?>,
   a modulus &<$ N &> is calculated as the product of 2 primes:
   &<$ p &> and &<$ q &>. a public exponent &<$ e &> is chosen to be some
-  small odd number, typically choices include: 3, 11, 16, 65537,
+  small odd number, typically choices include: 3, 11, 17, 65537,
   a corresponding private exponent &<$ d &> is computed as the modular inverse:
   &<$ d = e^{-1} \mod (p - 1)(q - 1) &>, which can be calculated using the
   extended Euclidean algorithm.
@@ -132,7 +122,7 @@
   Chinese Remainder Theroem.
 </p>
 
-<?= $hdr2_2 ?>
+<?= hc_H2("CRYSTALS: Kyber and Dilithium") ?>
 
 <p>
   In 1995, Peter Shor discovered an algorithm <?= cite("ref-shor95") ?> that can

@@ -47,7 +47,7 @@
  // - Any other strings not ending in <slash> to
  //   specify the page to output, in which case,
  //   ".html" will be automatically suffixed.
- $OutputControl = getenv("HARDCOPY_OUTPUT_CONTROL");
+ $OutputControl = $_GET['oc'] ?? getenv("HARDCOPY_OUTPUT_CONTROL");
  if( $OutputControl === false ) $OutputControl = "";
 
  function __hc_Hn($s, $n)
@@ -59,7 +59,8 @@
    $ap = $AnchorPos++;
    if( $PageCanBegin )
    {
-     $anchor = $Anchors[$ap];
+     $anchor = $Anchors[$ap] ?? null;
+     if( $anchor === null ) return "";
      $ret = "";
      $ret .= "\n<h$n";
      $ret .= " id=\"".$anchor["id"]."\"";
@@ -88,7 +89,7 @@
      if( $n == 1 && $Counters[0] === "@" )
        $Counters[0] = "A"; // Not we're in an annex.
      else
-       $Counters[$n-1]++; // Numerical chapter numberin.
+       $Counters[$n-1]++; // Numerical chapter numbering.
 
      $counter = "";
      for($i=0; $i<$n; $i++)
@@ -245,7 +246,7 @@
  function hcAddPages($p)
  {
    global $__exts__;
-   global $CurrentPage, $Anchors, $Pages;
+   global $CurrentPage, $Anchors, $Pages, $OutputControl;
 
    foreach( $__exts__ as $ext )
    {
@@ -259,7 +260,8 @@
        $page["ext"] = $ext;
        $Pages[] = $page;
 
-       include($cand);
+       if( $OutputControl !== "pagelist/" )
+         include($cand);
        break;
      }
    }
@@ -339,6 +341,8 @@
    if( $GLOBALS['hcPreprocExit'] === true )
      return;
 
+   echo "\x02"; // ASCII Start Of Text.
+
    if( $OutputControl === "pagelist/" )
    {
      if( is_string($Cover) ) printf("%s\n", $Cover);
@@ -370,11 +374,6 @@
    }
 
    if( $pagetitle !== null ) $title = "$title - $pagetitle";
-
-   echo "<!DOCTYPE html>\n";
-   echo "<html>\n";
-   echo "  <head>\n";
-   echo "    <meta charset=\"UTF-8\">\n";
 
    foreach( glob(getenv("HARDCOPY_SRCINC")."/*.css") as $css )
    {
@@ -432,6 +431,8 @@
      echo "\n<div class=\"pagebreak\"></div>\n\n";
    }
 
+   echo "\x03"; // ASCII End Of Text.
+
    // Output document contents.
    $cnt = count($Pages);
    for($i=0; $i<$cnt; $i++)
@@ -439,7 +440,9 @@
      $page = $Pages[$i];
      $p = $page["name"];
      $ext = $page["ext"];
+
      $PageCanBegin = $p === $OutputControl || $OutputControl === "";
+     if( $PageCanBegin ) echo "\x02"; // ASCII Start Of Text.
 
      $navbar = __hc_OutputNavbar($i, $cnt);
      if( $PageCanBegin && $OutputControl !== "" )
@@ -449,7 +452,10 @@
 
      if( $PageCanBegin && $OutputControl !== "" )
        echo $navbar;
+     echo "\x03"; // ASCII End Of Text.
    }
+
+   echo "\x02"; // ASCII Start Of Text.
 
    echo "\n  </body>\n";
    echo "</html>\n";
@@ -480,7 +486,9 @@
    global $NamedAnchors;
    global $Target, $OutputControl;
 
-   $anchor = $NamedAnchors[$id];
+   $anchor = $NamedAnchors[$id] ?? [
+     'page' => "",
+     'text' => "" ];
    $href = "#namedanchor-$id";
    if( $OutputControl !== "" )
      $href = __pagename2filename($anchor["page"]).$href;
