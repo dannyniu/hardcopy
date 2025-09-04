@@ -1,5 +1,5 @@
 <?php
- $__exts__ = [ "php", "htm", "html", ];
+ $__exts__ = [ "php", "htm", "html", "md.php", "md.html", ];
 
  $Title = "Untitled";
  $Cover = null;
@@ -322,7 +322,7 @@
 
    if( getenv("ocget") !== "true" ) $toc = "toc.php?oc=toc/";
 
-   $ret .= "<nav class=navbar-multipage>\n";
+   $ret .= "<nav class=navbar-multipage>";
    $ret .= $prev ?? " <a>(first)</a> ";
    $ret .= " <a target=toc href=\"$toc\">[Table of Contents]</a> ";
    $ret .= $next ?? " <a>(last)</a> ";
@@ -379,18 +379,18 @@
    {
      $ssn = preg_replace('#^.*/([^/]+)$#', '$1', $css);
      $ssn = getenv("HARDCOPY_SRCBLD")."/$ssn";
-     echo "    <link rel=stylesheet href=\"".htmlspecialchars($ssn)."\">\n";
+     echo "<link rel=stylesheet href=\"".htmlspecialchars($ssn)."\"/>\n";
    }
 
    foreach( glob("assets/*.css") as $css )
    {
-     echo "    <link rel=stylesheet href=\"".htmlspecialchars($css)."\">\n";
+     echo "<link rel=stylesheet href=\"".htmlspecialchars($css)."\"/>\n";
    }
 
-   echo "    <title>".htmlspecialchars($title)."</title>\n";
-   echo "  </head>\n";
+   echo "<title>".htmlspecialchars($title)."</title>\n";
+   echo "</head>\n";
 
-   echo "  <body>\n\n";
+   echo "<body>\n\n";
 
    // Ready to output.
    $AnchorPos = 0;
@@ -457,9 +457,7 @@
 
    echo "\x02"; // ASCII Start Of Text.
 
-   echo "\n  </body>\n";
-   echo "</html>\n";
-
+   echo "\n</body>\n</html>\n";
    return;
  }
 

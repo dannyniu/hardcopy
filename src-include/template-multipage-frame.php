@@ -23,12 +23,10 @@
        top:             0;
        height:          100vh;
      }
-
      iframe[name=toc] {
        left:            0;
        width:           calc(12vw + 120px);
      }
-
      iframe[name=main] {
        left:            calc(12vw + 120px);
        width:           calc(88vw - 120px);
@@ -36,10 +34,8 @@
     </style>
   </head>
   <body>
-
     <iframe name=toc src="<?= htmlspecialchars($toc) ?>">
     </iframe>
-
     <?php
      $mainsrc =
        $Cover === null ?
@@ -48,6 +44,5 @@
     ?>
     <iframe name=main src="<?= htmlspecialchars($mainsrc) ?>">
     </iframe>
-
   </body>
 </html>

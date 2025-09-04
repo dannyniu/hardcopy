@@ -54,18 +54,22 @@
 
   /* -- begin: paragraph numbering -- */
 
-  body > p, main > p {
+  body > p, body > pre,
+  main > p, main > pre {
     counter-increment:  paragraph-cnt;
     position:           relative;
   }
 
-  body > p::before, main > p::before {
-    content:    counter(paragraph-cnt);
-    text-align: right;
-    display:    block;
-    position:   absolute;
-    left:       -12mm;
-    width:      10mm;
-    height:     100%;
+  body > p::before, body > pre::before,
+  main > p::before, main > pre::before {
+    content:      counter(paragraph-cnt);
+    font-family:  Times New Roman, serif;
+    font-size:    8pt;
+    text-align:   right;
+    display:      block;
+    position:     absolute;
+    left:         -12mm;
+    width:        10mm;
+    height:       100%;
   }
 }

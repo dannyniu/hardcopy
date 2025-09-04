@@ -19,15 +19,15 @@
    {
      echo "<!DOCTYPE html>\n";
      echo "<html>\n";
-     echo "  <head>\n";
-     echo "    <meta charset=\"UTF-8\">\n";
+     echo "<head>\n";
+     echo "<meta charset=\"UTF-8\">\n";
 
-     echo "<template hidden>";
+     #echo "<template hidden>";
    }
-   include("./toc.php");
+   #include("./toc.php");
    if( !$ocpl )
    {
-     echo "</template>";
+     #echo "</template>";
    }
 
    // - getenv('ocget'):
@@ -57,12 +57,19 @@
    putenv("ocget=$hcArg");
 
    // 2024-04-11: other future potential headers around here.
-   require_once("hc-9postproc.php");
+   #- require_once("hc-9postproc.php");
    // 2024-04-11: other future potential headers around here.
 
-   $fp = popen("php ./toc.php", "rb");
-   hcPostProc::Proc($fp);
-   #fpassthru($fp);
+   $cmd = <<<EOF
+     php ./toc.php | php -r '
+       require_once(getenv("HARDCOPY_SRCINC")."/hc-9postproc.php");
+       hcPostProc::Proc(STDIN);'
+   EOF;
+   if( getenv("HARDCOPY_OUTPUT_CONTROL") != "pagelist/" )
+     // $cmd .= "| cmark --unsafe" // 2025-09-04: Enable this on-demand.
+     ;
+   $fp = popen($cmd, "rb");
+   fpassthru($fp);
 
    pclose($fp);
    exit();
@@ -71,6 +78,6 @@
  {
    // 2024-04-11: other future potential headers around here.
    require_once("hc-1toc.php");
-   require_once("hc-9postproc.php");
+   #- require_once("hc-9postproc.php");
    // 2024-04-11: other future potential headers around here.
  }
